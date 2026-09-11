@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Showcase - Adult Echocardiography Reporting System</title>
+  <style>
+    :root{--primary:#3730a3;--secondary:#4338ca;--accent:#eef2ff;--border:#c7d2fe;--dark:#1e293b;--gold:#f59e0b;--success:#059669;--danger:#dc2626}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f8fa;color:var(--dark)}
+    header{background:linear-gradient(135deg,#3730a3,#4338ca);color:white;padding:34px 28px;text-align:center}
+    header h1{margin:0;font-size:30px;line-height:1.25}
+    header p{margin:10px auto 0;max-width:850px;font-size:16px;opacity:.95;line-height:1.5}
+    .demo-banner{background:#fff3cd;color:#5f4300;border-bottom:1px solid #ffe08a;padding:12px 18px;font-weight:bold;text-align:center}
+    .container{max-width:1250px;margin:auto;padding:20px}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+    .card{background:white;border:1px solid var(--border);border-radius:14px;box-shadow:0 3px 14px rgba(0,0,0,.06);padding:20px}
+    .card h2,.card h3{margin-top:0;color:var(--primary)}
+    .feature-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0;padding:0;list-style:none}
+    .feature-list li{background:#f8fbfc;border:1px solid #e3eef1;border-radius:10px;padding:10px 12px;font-weight:600}
+    .feature-list li::before{content:'✓ ';color:var(--success);font-weight:bold}
+    .pricing{background:linear-gradient(135deg,#ffffff,#eef2ff);border:2px solid var(--border)}
+    .price{font-size:34px;font-weight:bold;color:var(--primary);margin:8px 0}
+    .btn-primary,.btn-secondary{display:inline-block;text-decoration:none;border:0;border-radius:9px;padding:11px 16px;font-weight:bold;cursor:pointer;margin:5px 6px 5px 0}
+    .btn-primary{background:var(--primary);color:white}
+    .btn-secondary{background:#eceff1;color:#263238}
+    .note{background:#f8f9fa;border-left:5px solid var(--primary);padding:12px;margin:12px 0;font-size:14px;line-height:1.45}
+    .layout{display:grid;grid-template-columns:430px 1fr;gap:18px;margin-top:18px}
+    .panel,.preview{background:white;border:1px solid var(--border);border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.06)}
+    .panel{padding:16px;max-height:calc(100vh - 60px);overflow:auto}
+    .preview{padding:20px;overflow:auto}
+    fieldset{border:1px solid var(--border);border-radius:10px;margin:0 0 14px;padding:12px}
+    legend{font-weight:bold;color:var(--primary);padding:0 6px}
+    label{display:block;font-size:13px;font-weight:600;margin:10px 0 4px}
+    input,select,textarea{width:100%;padding:8px;border:1px solid #b0bec5;border-radius:7px;font-size:14px;background:white}
+    textarea{min-height:70px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .row4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+    .measure-card{border:1px solid #e0e0e0;border-radius:9px;padding:8px;background:#fbfdfe;margin-bottom:8px}
+    .measure-card label{margin-top:0}
+    .other-note{margin-top:6px;display:none}
+    .other-note.visible{display:block}
+    .btns{position:sticky;bottom:0;background:white;padding-top:10px;border-top:1px solid #e0e0e0;display:flex;gap:8px;flex-wrap:wrap}
+    button{border:0;border-radius:8px;padding:10px 12px;cursor:pointer;font-weight:bold}
+    .primary{background:var(--primary);color:white}
+    .secondary{background:#eceff1;color:#263238}
+    .muted{color:#666;font-size:12px}
+    .imp-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px}
+    .imp-grid label{font-weight:normal;font-size:12.5px;display:flex;align-items:center;gap:5px;margin:0;cursor:pointer}
+    .meas-tbl{width:100%;border-collapse:collapse;font-size:12px}
+    .meas-tbl th{background:#f2f2f2;padding:5px;border:1px solid #ccc;text-align:left;font-size:11px}
+    .meas-tbl td{padding:4px;border:1px solid #ccc}
+    .meas-tbl input{padding:3px 5px;width:100%}
+    .meas-tbl select{font-size:11px;padding:3px}
+    #report{background:white;color:#111;width:794px;min-height:1123px;margin:auto;padding:34px 42px;border:1px solid #e0e0e0;font-family:'Times New Roman',Times,serif;position:relative;overflow:hidden}
+    #report::before{content:'DEMO VERSION';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:90px;font-weight:bold;color:rgba(255,0,0,.18);border:7px solid rgba(255,0,0,.12);padding:20px 35px;z-index:0;pointer-events:none;white-space:nowrap}
+    #report>*{position:relative;z-index:1}
+    #report h2{text-align:center;margin:0 0 14px;text-transform:uppercase;font-size:21px;color:#000}
+    #report .topline{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px;margin-bottom:10px}
+    #report .section-title{margin-top:12px;font-weight:bold;font-size:15px;border-bottom:1px solid #777;padding-bottom:2px}
+    #report table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px}
+    #report td,#report th{border:1px solid #999;padding:4px 6px;vertical-align:top}
+    #report th{background:#f2f2f2;text-align:left;width:38%}
+    #report p.rp{font-size:14px;margin:5px 0}
+    .impression-box{border:1px solid #999;padding:10px 14px;min-height:100px;margin-top:6px;white-space:pre-line;font-size:14px;line-height:1.45}
+    .signature{margin-top:40px;display:flex;justify-content:flex-end}
+    .sigbox{width:300px;text-align:left;border-top:1px solid #333;padding-top:8px;font-size:13px}
+    footer{background:#3730a3;color:white;text-align:center;margin-top:25px;padding:22px;line-height:1.6}
+    footer h3{margin:0 0 5px}
+    @media(max-width:1000px){.hero-grid,.layout{grid-template-columns:1fr}.panel{max-height:none}#report{width:100%}.feature-list{grid-template-columns:1fr}}
+    @media print{body{background:white}.demo-banner,header,.container>.hero-grid,.panel,footer{display:none}.container{padding:0}.layout{display:block}.preview{border:0;box-shadow:none;padding:0}#report{border:0;width:100%;min-height:auto;padding:20mm}}
+  </style>
+</head>
+<body>
+<div class="demo-banner">SHOWCASE VERSION — for feature demonstration only. Final reports and full access are available after subscription.</div>
+<header>
+  <h1>Adult Echocardiography Reporting System</h1>
+  <p>Professional Adult Echo Reporting Platform for Cardiologists, Physicians and Hospitals. This showcase demonstrates LV function assessment, valve findings, measurement entry and guided impression generation.</p>
+</header>
+
+<main class="container">
+  <section class="hero-grid">
+    <div class="card">
+      <h2>Features Available</h2>
+      <ul class="feature-list">
+        <li>Comprehensive Adult Echo Reporting</li>
+        <li>LV Systolic & Diastolic Function</li>
+        <li>All Four Valve Assessment</li>
+        <li>2D & M-Mode Measurements</li>
+        <li>Doppler & Tissue Doppler</li>
+        <li>RWMA / Wall Motion Analysis</li>
+        <li>Pericardial Assessment</li>
+        <li>Guided Impression Generation</li>
+        <li>Doctor Profile Management</li>
+        <li>Automatic PDF Report Generation</li>
+      </ul>
+    </div>
+    <div class="card pricing">
+      <h2>Subscription Plan</h2>
+      <div class="price">₹2000 / month</div>
+      <p><b>Access includes:</b></p>
+      <ul>
+        <li>Unlimited adult echo reports</li>
+        <li>PDF export in subscribed version</li>
+        <li>Doctor profile storage</li>
+        <li>Future updates and improvements</li>
+      </ul>
+      <a href="#" class="btn-primary">Subscribe Now</a>
+      <a href="#demoForm" class="btn-secondary">View Demo</a>
+      <div class="note"><b>Note:</b> PDF download is disabled in this showcase version.</div>
+    </div>
+  </section>
+
+  <section class="layout" id="demoForm">
+    <section class="panel">
+      <div class="note"><b>Demo:</b> All fields update the report preview in real-time. PDF download is disabled in this showcase.</div>
+
+      <fieldset>
+        <legend>Patient Details</legend>
+        <div class="row"><div><label>Patient Name</label><input id="patName" value="Sample Patient"></div><div><label>Age / Gender</label><input id="patAge" value="58 yrs / Male"></div></div>
+        <div class="row3"><div><label>ID No</label><input id="patId" value="DEMO-002"></div><div><label>Date</label><input id="patDate" type="date"></div><div><label>Heart Rate (bpm)</label><input id="hr" type="number" value="72"></div></div>
+        <div class="row3"><div><label>BP (mmHg)</label><input id="bp" value="130/80"></div><div><label>Height (cm)</label><input id="ht" type="number" value="168"></div><div><label>Weight (kg)</label><input id="wt" type="number" value="72"></div></div>
+        <div class="row">
+          <div><label>Indication</label>
+            <select id="patIndication">
+              <option>Chest pain evaluation</option><option>Dyspnoea evaluation</option><option>Hypertension follow-up</option><option selected>Known CAD / IHD follow-up</option><option>Murmur evaluation</option><option>Atrial fibrillation</option><option>Cardiac failure assessment</option><option>Pre-operative evaluation</option><option>Valve disease follow-up</option><option>Cardiomyopathy evaluation</option><option>Routine screening</option><option>Other</option>
+            </select>
+          </div>
+          <div><label>Study Quality</label>
+            <select id="studyQuality">
+              <option selected>Good — all views obtained</option><option>Adequate — most views obtained</option><option>Limited — suboptimal windows</option><option>Poor — repeat study recommended</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>LV Systolic Function</legend>
+        <div class="row4">
+          <div><label>LVEF (%)</label><input id="ef" type="number" value="58"></div>
+          <div><label>EF Method</label><select id="efMethod"><option selected>Biplane Simpson's</option><option>Visual estimation</option><option>M-mode (Teichholz)</option></select></div>
+          <div><label>LV Function</label><select id="lvFunction"><option selected>Normal systolic function</option><option>Mildly reduced (EF 41–54%)</option><option>Moderately reduced (EF 30–40%)</option><option>Severely reduced (EF &lt;30%)</option><option>Hyperdynamic</option></select></div>
+          <div><label>FS (%)</label><input id="fs" type="number" value="32"></div>
+        </div>
+        <label>RWMA</label>
+        <select id="rwma">
+          <option selected>No regional wall motion abnormality</option><option>Hypokinesia — anterior wall</option><option>Hypokinesia — inferior wall</option><option>Hypokinesia — lateral wall</option><option>Hypokinesia — septal wall</option><option>Hypokinesia — posterior wall</option><option>Akinesia — anterior wall</option><option>Akinesia — inferior wall</option><option>Akinesia — septal wall</option><option>Dyskinesia present</option><option>Apical aneurysm</option><option>Diffuse hypokinesia</option><option>Other</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>LV Diastolic Function</legend>
+        <div class="row">
+          <div><label>Diastolic Grade</label><select id="diastGrade"><option selected>Normal diastolic function</option><option>Grade I — Impaired relaxation</option><option>Grade II — Pseudonormal</option><option>Grade III — Restrictive filling</option><option>Indeterminate</option></select></div>
+          <div><label>LA Pressure</label><select id="laPressure"><option selected>Normal LA pressure</option><option>Elevated LA pressure</option><option>Indeterminate</option></select></div>
+        </div>
+        <div class="row3">
+          <div><label>Mitral E (m/s)</label><input id="mE" type="number" step="0.01" value="0.85"></div>
+          <div><label>Mitral A (m/s)</label><input id="mA" type="number" step="0.01" value="0.72"></div>
+          <div><label>E/A Ratio</label><input id="eaRatio" type="number" step="0.01" value="1.18"></div>
+        </div>
+        <div class="row3">
+          <div><label>DT (ms)</label><input id="dt" type="number" value="200"></div>
+          <div><label>e' septal (cm/s)</label><input id="eSeptal" type="number" step="0.1" value="8.5"></div>
+          <div><label>E/e' ratio</label><input id="eePrime" type="number" step="0.1" value="10"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Valve Assessment</legend>
+        <p class="muted">Choose standard finding; select Other to type custom.</p>
+        <div id="valveInputs"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Chambers, Aorta &amp; Pericardium</legend>
+        <div id="chamberInputs"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2D &amp; M-Mode Measurements</legend>
+        <table class="meas-tbl">
+          <thead><tr><th>Parameter</th><th>Value (mm)</th><th>Normal Range</th><th>Status</th></tr></thead>
+          <tbody id="meas2DBody"></tbody>
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Doppler &amp; Haemodynamics</legend>
+        <table class="meas-tbl">
+          <thead><tr><th>Parameter</th><th>Value</th><th>Unit</th><th>Status</th></tr></thead>
+          <tbody id="dopplerBody"></tbody>
+        </table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Impression &amp; Doctor Details</legend>
+        <p class="muted">Select key findings and generate impression.</p>
+        <div class="imp-grid" id="impChecks"></div>
+        <label>Additional impression line</label>
+        <input id="customLine" placeholder="Type and click Add">
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button type="button" class="secondary" onclick="addCustomLine()">Add Line</button>
+          <button type="button" class="primary" onclick="generateImpression()">Generate Impression</button>
+        </div>
+        <label>Impression</label><textarea id="impressionText"></textarea>
+        <label>Doctor Name</label><input id="drName" placeholder="Available in subscribed version">
+        <label>Designation / Qualification</label><input id="drDesig" placeholder="Available in subscribed version">
+        <label>Registration No</label><input id="drReg" placeholder="Available in subscribed version">
+      </fieldset>
+
+      <div class="btns">
+        <button class="primary" onclick="updateReport()">Update Preview</button>
+        <button class="primary" onclick="alert('PDF Download is available in the subscribed version.')">Download PDF Report</button>
+        <button class="secondary" onclick="window.print()">Print Sample</button>
+        <button class="secondary" onclick="resetForm()">Reset</button>
+      </div>
+    </section>
+
+    <section class="preview">
+      <div id="report">
+        <h2>Adult Echocardiography Report</h2>
+        <div class="topline">
+          <div><b>Name:</b> <span data-out="patName"></span></div>
+          <div><b>Age / Gender:</b> <span data-out="patAge"></span></div>
+          <div><b>ID No:</b> <span data-out="patId"></span></div>
+          <div><b>Date:</b> <span data-out="patDate"></span></div>
+          <div><b>HR:</b> <span data-out="hr"></span> bpm &nbsp;|&nbsp; <b>BP:</b> <span data-out="bp"></span></div>
+          <div><b>Study Quality:</b> <span data-out="studyQuality"></span></div>
+        </div>
+        <p class="rp"><b>Indication:</b> <span data-out="patIndication"></span></p>
+        <div class="section-title">LV Systolic Function</div>
+        <p class="rp" id="rLVSys">—</p>
+        <div class="section-title">LV Diastolic Function</div>
+        <p class="rp" id="rLVDiast">—</p>
+        <div class="section-title">Valve Assessment</div>
+        <table><tbody id="rValveTable"></tbody></table>
+        <div class="section-title">Chambers, Aorta &amp; Pericardium</div>
+        <table><tbody id="rChamberTable"></tbody></table>
+        <div class="section-title">2D &amp; M-Mode Measurements</div>
+        <table><thead><tr><th>Parameter</th><th>Value</th><th>Normal Range</th><th>Status</th></tr></thead><tbody id="rMeas2DTable"></tbody></table>
+        <div class="section-title">Doppler &amp; Haemodynamics</div>
+        <table><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th><th>Status</th></tr></thead><tbody id="rDopplerTable"></tbody></table>
+        <div class="section-title">IMPRESSION</div>
+        <div class="impression-box"><span data-out="impressionText"></span></div>
+        <div class="signature"><div class="sigbox"><b>Performed and Interpreted by:</b><br><span data-out="drName"></span><br><span data-out="drDesig"></span><br><span data-out="drReg"></span><br><br><span class="muted">Doctor may sign manually above this line.</span></div></div>
+      </div>
+    </section>
+  </section>
+</main>
+
+<footer>
+  <h3>Interested?</h3>
+  <div>Contact Administrator through WhatsApp or Email for subscription activation.</div>
+  <div><b>WhatsApp:</b> +91 XXXXXXXXXX &nbsp; | &nbsp; <b>Email:</b> your@email.com</div>
+</footer>
+
+<script>
+const valveFields=[
+  {label:"Mitral valve",options:["Normal, no MR/MS","Mild MR","Moderate MR","Severe MR","Mild MS","Moderate MS","Severe MS","MVP — mitral valve prolapse","Flail leaflet","Rheumatic mitral valve","Calcified mitral annulus","Other"]},
+  {label:"Aortic valve",options:["Tricuspid, no AS/AR","Bicuspid aortic valve","Mild AS","Moderate AS","Severe AS","Mild AR","Moderate AR","Severe AR","Calcified aortic valve","Aortic sclerosis","Other"]},
+  {label:"Tricuspid valve",options:["Normal","Mild TR","Moderate TR","Severe TR","Tricuspid stenosis","Rheumatic tricuspid disease","Other"]},
+  {label:"Pulmonary valve",options:["Normal, no PS/PR","Mild PS","Moderate PS","Severe PS","Mild PR","Moderate PR","Severe PR","Other"]},
+];
+const chamberFields=[
+  {label:"Left atrium",options:["Normal size","Mildly dilated","Moderately dilated","Severely dilated","Indeterminate","Other"]},
+  {label:"Right atrium",options:["Normal size","Mildly dilated","Moderately dilated","Severely dilated","Indeterminate","Other"]},
+  {label:"Right ventricle",options:["Normal size and function","Mildly dilated","Moderately dilated","Severely dilated","Reduced RV function","Pressure overloaded","Volume overloaded","Other"]},
+  {label:"Interventricular septum",options:["Normal","Paradoxical septal motion","LBBB pattern","Asymmetric hypertrophy","Other"]},
+  {label:"Aortic root",options:["Normal","Mildly dilated","Moderately dilated","Severely dilated","Other"]},
+  {label:"Ascending aorta",options:["Normal","Mildly dilated","Moderately dilated","Severely dilated","Not well visualized","Other"]},
+  {label:"IVC",options:["Normal — collapsibility >50%","Dilated — collapsibility >50%","Dilated — collapsibility <50%","Not assessed","Other"]},
+  {label:"Pericardium",options:["No pericardial effusion","Trivial pericardial effusion","Mild pericardial effusion","Moderate pericardial effusion","Large pericardial effusion","Cardiac tamponade features","Pericardial thickening","Other"]},
+];
+const meas2DParams=[
+  {name:"LVIDd",normal:"42–59 mm"},{name:"LVIDs",normal:"25–40 mm"},
+  {name:"IVSd",normal:"6–11 mm"},{name:"LVPWd",normal:"6–11 mm"},
+  {name:"Aortic root",normal:"20–37 mm"},{name:"Ascending aorta",normal:"22–36 mm"},
+  {name:"Left atrium (AP)",normal:"25–38 mm"},{name:"RVOT diameter",normal:"25–35 mm"},
+  {name:"RV basal diameter",normal:"25–41 mm"},{name:"PA systolic pressure (RVSP)",normal:"<36 mmHg"},
+];
+const dopplerParams=[
+  {name:"Aortic peak velocity",unit:"m/s"},{name:"Aortic mean gradient",unit:"mmHg"},
+  {name:"Aortic valve area (AVA)",unit:"cm²"},{name:"Mitral peak E",unit:"m/s"},
+  {name:"Mitral peak A",unit:"m/s"},{name:"Mitral mean gradient",unit:"mmHg"},
+  {name:"Mitral valve area (MVA)",unit:"cm²"},{name:"TR peak velocity",unit:"m/s"},
+  {name:"RVSP (estimated)",unit:"mmHg"},{name:"Pulmonary peak velocity",unit:"m/s"},
+  {name:"TAPSE",unit:"mm"},{name:"S' wave (lateral)",unit:"cm/s"},
+];
+const impressionOptions=[
+  "Normal study — no significant abnormality","Normal LV size and systolic function","Normal LV diastolic function","Normal right heart","No significant valvular abnormality","No pericardial effusion","Mild LV diastolic dysfunction — Grade I","Moderate LV diastolic dysfunction — Grade II","Severe LV diastolic dysfunction — Grade III","Mildly reduced LV systolic function","Moderately reduced LV systolic function","Severely reduced LV systolic function","Regional wall motion abnormality — ischaemic aetiology","Dilated cardiomyopathy pattern","Hypertrophic cardiomyopathy pattern","Moderate mitral regurgitation","Severe mitral regurgitation — further evaluation","Moderate aortic stenosis","Severe aortic stenosis — intervention recommended","Mild aortic regurgitation","Pulmonary arterial hypertension","Dilated left atrium — AF risk","Pericardial effusion — clinical correlation advised","Clinical and cardiology follow-up recommended",
+];
+
+function val(id){return document.getElementById(id)?.value||''}
+function esc(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+
+function renderValveInputs(){
+  document.getElementById('valveInputs').innerHTML=valveFields.map((f,i)=>`
+    <div class="measure-card"><label>${f.label}</label>
+      <select id="valve_${i}" onchange="toggleOther(this,'valve_other_${i}')">
+        ${f.options.map(o=>`<option>${o}</option>`).join('')}
+      </select>
+      <input class="other-note" id="valve_other_${i}" placeholder="Custom finding...">
+    </div>`).join('')
+}
+function renderChamberInputs(){
+  document.getElementById('chamberInputs').innerHTML=chamberFields.map((f,i)=>`
+    <div class="measure-card"><label>${f.label}</label>
+      <select id="chamber_${i}" onchange="toggleOther(this,'chamber_other_${i}')">
+        ${f.options.map(o=>`<option>${o}</option>`).join('')}
+      </select>
+      <input class="other-note" id="chamber_other_${i}" placeholder="Custom finding...">
+    </div>`).join('')
+}
+function renderMeas2D(){
+  document.getElementById('meas2DBody').innerHTML=meas2DParams.map((p,i)=>`
+    <tr><td>${p.name}</td>
+      <td><input id="m2d_val_${i}" type="number" step="0.1" placeholder="—"></td>
+      <td style="font-size:11px;color:#666">${p.normal}</td>
+      <td><select id="m2d_st_${i}"><option>—</option><option>Normal</option><option>Mildly increased</option><option>Moderately increased</option><option>Severely increased</option><option>Reduced</option><option>Not measured</option></select></td>
+    </tr>`).join('')
+}
+function renderDoppler(){
+  document.getElementById('dopplerBody').innerHTML=dopplerParams.map((p,i)=>`
+    <tr><td>${p.name}</td>
+      <td><input id="dop_val_${i}" type="number" step="0.01" placeholder="—"></td>
+      <td style="font-size:11px;color:#666">${p.unit}</td>
+      <td><select id="dop_st_${i}"><option>—</option><option>Normal</option><option>Mildly elevated</option><option>Moderately elevated</option><option>Severely elevated</option><option>Reduced</option><option>Not recorded</option></select></td>
+    </tr>`).join('')
+}
+function renderImpChecks(){
+  document.getElementById('impChecks').innerHTML=impressionOptions.map((opt,i)=>
+    `<label><input type="checkbox" class="impCheck" value="${opt}"> ${opt}</label>`).join('')
+}
+function toggleOther(sel,otherId){
+  const el=document.getElementById(otherId);
+  if(!el)return;
+  sel.value==='Other'?el.classList.add('visible'):(el.classList.remove('visible'),el.value='')
+}
+function getFieldVal(id,otherId){
+  const sel=document.getElementById(id);
+  if(!sel||!sel.value)return '—';
+  if(sel.value==='Other'){const o=document.getElementById(otherId);return o?.value||'Other'}
+  return sel.value
+}
+function addCustomLine(){
+  const input=document.getElementById('customLine');
+  const text=(input.value||'').trim();
+  if(!text)return;
+  const current=val('impressionText').trim();
+  document.getElementById('impressionText').value=current?current+'\n'+text.toUpperCase():text.toUpperCase();
+  input.value='';updateReport()
+}
+function generateImpression(){
+  const lines=Array.from(document.querySelectorAll('.impCheck:checked')).map(cb=>cb.value);
+  const extra=(val('customLine')||'').trim();
+  if(extra)lines.push(extra.toUpperCase());
+  document.getElementById('impressionText').value=lines.join('.\n')+(lines.length?'.':'');
+  updateReport()
+}
+
+const simpleIds=['patName','patAge','patId','patDate','hr','bp','patIndication','studyQuality','impressionText','drName','drDesig','drReg'];
+
+function updateReport(){
+  simpleIds.forEach(id=>document.querySelectorAll(`[data-out="${id}"]`).forEach(e=>e.textContent=val(id)));
+
+  // LV systolic
+  const lvParts=[];
+  if(val('lvFunction'))lvParts.push(val('lvFunction'));
+  if(val('ef'))lvParts.push(`LVEF: ${val('ef')}% (${val('efMethod')||'method not specified'})`);
+  if(val('fs'))lvParts.push(`FS: ${val('fs')}%`);
+  if(val('rwma'))lvParts.push(val('rwma'));
+  document.getElementById('rLVSys').textContent=lvParts.join('. ')||'—';
+
+  // LV diastolic
+  const dParts=[];
+  if(val('diastGrade'))dParts.push(val('diastGrade'));
+  if(val('laPressure'))dParts.push(val('laPressure'));
+  [['mE','E','m/s'],['mA','A','m/s'],['eaRatio','E/A',''],['dt','DT','ms'],['eSeptal',"e'",'cm/s'],['eePrime',"E/e'",'']].forEach(([id,lbl,unit])=>{if(val(id))dParts.push(`${lbl}: ${val(id)}${unit?' '+unit:''}`)});
+  document.getElementById('rLVDiast').textContent=dParts.join(' | ')||'—';
+
+  // Valve table
+  document.getElementById('rValveTable').innerHTML=valveFields.map((f,i)=>`<tr><th>${f.label}</th><td>${esc(getFieldVal('valve_'+i,'valve_other_'+i))}</td></tr>`).join('');
+
+  // Chamber table
+  document.getElementById('rChamberTable').innerHTML=chamberFields.map((f,i)=>`<tr><th>${f.label}</th><td>${esc(getFieldVal('chamber_'+i,'chamber_other_'+i))}</td></tr>`).join('');
+
+  // 2D measurements
+  document.getElementById('rMeas2DTable').innerHTML=meas2DParams.map((p,i)=>{
+    const v=document.getElementById('m2d_val_'+i)?.value||'—';
+    const st=document.getElementById('m2d_st_'+i)?.value||'—';
+    return`<tr><td>${p.name}</td><td>${v}</td><td style="font-size:11px;color:#666">${p.normal}</td><td>${st}</td></tr>`
+  }).join('');
+
+  // Doppler
+  document.getElementById('rDopplerTable').innerHTML=dopplerParams.map((p,i)=>{
+    const v=document.getElementById('dop_val_'+i)?.value||'—';
+    const st=document.getElementById('dop_st_'+i)?.value||'—';
+    return`<tr><td>${p.name}</td><td>${v}</td><td style="font-size:11px;color:#666">${p.unit}</td><td>${st}</td></tr>`
+  }).join('');
+}
+
+function resetForm(){if(confirm('Clear all entered values?'))location.reload()}
+
+renderValveInputs();renderChamberInputs();renderMeas2D();renderDoppler();renderImpChecks();
+window.addEventListener('input',updateReport);
+window.addEventListener('change',updateReport);
+window.onload=()=>{document.getElementById('patDate').valueAsDate=new Date();updateReport()};
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EchoReport Pro — Full Product Hub</title>
+  <style>
+    :root{--teal:#0f5f6f;--indigo:#3730a3;--cyan:#0e7490;--rose:#be185d}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f8fa;color:#1e293b}
+    header{background:linear-gradient(135deg,#0f5f6f,#178093);color:white;padding:40px 28px;text-align:center}
+    header h1{margin:0;font-size:32px}
+    header p{margin:10px auto 0;max-width:700px;font-size:16px;opacity:.92;line-height:1.55}
+    .container{max-width:1100px;margin:auto;padding:40px 20px}
+    .section-title{text-align:center;font-size:22px;font-weight:bold;color:#1e293b;margin-bottom:8px}
+    .section-sub{text-align:center;color:#666;margin-bottom:32px;font-size:15px}
+    .info-bar{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:14px 20px;margin-bottom:32px;font-size:14px;color:#2e7d32;text-align:center}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px}
+    .card{background:white;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);overflow:hidden;display:flex;flex-direction:column}
+    .card-header{padding:28px 22px 20px;color:white;text-align:center}
+    .card-header .icon{font-size:38px;margin-bottom:8px}
+    .card-header h2{margin:0;font-size:20px}
+    .card-header p{margin:6px 0 0;opacity:.88;font-size:13px}
+    .card-body{padding:20px;flex:1;display:flex;flex-direction:column}
+    .card-body ul{margin:0 0 14px;padding-left:18px;color:#444;font-size:13.5px;line-height:1.75}
+    .card-body ul li{margin-bottom:2px}
+    .tag{display:inline-block;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:20px;background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7;margin-bottom:14px}
+    .btn{display:block;text-decoration:none;text-align:center;color:white;padding:12px;border-radius:9px;font-weight:bold;font-size:15px;margin-top:auto;transition:opacity .15s}
+    .btn:hover{opacity:.88}
+    .btn-demo{display:block;text-decoration:none;text-align:center;padding:9px;border-radius:9px;font-weight:bold;font-size:13px;margin-top:8px;border:2px solid;background:transparent;transition:opacity .15s}
+    .btn-demo:hover{opacity:.78}
+    .pediatric .card-header{background:linear-gradient(135deg,#0f5f6f,#178093)}
+    .pediatric .btn{background:#0f5f6f}
+    .pediatric .btn-demo{color:#0f5f6f;border-color:#0f5f6f}
+    .adult .card-header{background:linear-gradient(135deg,#3730a3,#4338ca)}
+    .adult .btn{background:#3730a3}
+    .adult .btn-demo{color:#3730a3;border-color:#3730a3}
+    .neonatal .card-header{background:linear-gradient(135deg,#0e7490,#0891b2)}
+    .neonatal .btn{background:#0e7490}
+    .neonatal .btn-demo{color:#0e7490;border-color:#0e7490}
+    .fetal .card-header{background:linear-gradient(135deg,#be185d,#db2777)}
+    .fetal .btn{background:#be185d}
+    .fetal .btn-demo{color:#be185d;border-color:#be185d}
+    footer{text-align:center;padding:30px;color:#888;font-size:13px}
+    @media(max-width:600px){.grid{grid-template-columns:1fr;gap:18px}header h1{font-size:24px}}
+  </style>
+</head>
+<body>
+<header>
+  <h1>EchoReport Pro — Full Product Hub</h1>
+  <p>Professional echocardiography report generation with PDF download, subscription tracking, and doctor details auto-save.</p>
+</header>
+
+<div class="container">
+  <div class="section-title">Select Your Specialty</div>
+  <p class="section-sub">Login with <strong>admin / admin@1234</strong>, then activate your subscription to unlock PDF download.</p>
+
+  <div class="info-bar">
+    Full product includes: real-time live preview &bull; PDF download (html2canvas + jsPDF) &bull; login gate &bull; 30-day subscription tracking &bull; doctor details auto-saved to browser
+  </div>
+
+  <div class="grid">
+
+    <div class="card pediatric">
+      <div class="card-header">
+        <div class="icon">&#9829;</div>
+        <h2>Pediatric Echo</h2>
+        <p>Congenital heart disease in children</p>
+      </div>
+      <div class="card-body">
+        <div class="tag">FULL PRODUCT</div>
+        <ul>
+          <li>Segmental anatomy (22 fields)</li>
+          <li>Valve &amp; AV/VA connections</li>
+          <li>2D/M-Mode measurements</li>
+          <li>Doppler with status</li>
+          <li>PDF download enabled</li>
+        </ul>
+        <a class="btn" href="../files /pediatric echo.html" target="_blank">Open Pediatric App</a>
+        <a class="btn-demo" href="../files /pediatric echo_demo.html" target="_blank">Try Demo First</a>
+      </div>
+    </div>
+
+    <div class="card adult">
+      <div class="card-header">
+        <div class="icon">&#10084;</div>
+        <h2>Adult Echo</h2>
+        <p>Acquired heart disease in adults</p>
+      </div>
+      <div class="card-body">
+        <div class="tag">FULL PRODUCT</div>
+        <ul>
+          <li>LV systolic &amp; diastolic function</li>
+          <li>4-valve assessment</li>
+          <li>Chambers, aorta &amp; pericardium</li>
+          <li>2D/M-Mode &amp; Doppler tables</li>
+          <li>PDF download enabled</li>
+        </ul>
+        <a class="btn" href="../files /adult_echo.html" target="_blank">Open Adult App</a>
+        <a class="btn-demo" href="../files /adult_echo_demo.html" target="_blank">Try Demo First</a>
+      </div>
+    </div>
+
+    <div class="card neonatal">
+      <div class="card-header">
+        <div class="icon">&#128148;</div>
+        <h2>Neonatal Echo</h2>
+        <p>Newborn &amp; NICU cardiac evaluation</p>
+      </div>
+      <div class="card-body">
+        <div class="tag">FULL PRODUCT</div>
+        <ul>
+          <li>Full segmental anatomy</li>
+          <li>PDA haemodynamic assessment</li>
+          <li>2D measurements with Z-scores</li>
+          <li>Doppler &amp; RVSP estimation</li>
+          <li>PDF download enabled</li>
+        </ul>
+        <a class="btn" href="../files /neonatal_echo.html" target="_blank">Open Neonatal App</a>
+        <a class="btn-demo" href="../files /neonatal_echo_demo.html" target="_blank">Try Demo First</a>
+      </div>
+    </div>
+
+    <div class="card fetal">
+      <div class="card-header">
+        <div class="icon">&#128149;</div>
+        <h2>Fetal Echo</h2>
+        <p>Antenatal cardiac screening</p>
+      </div>
+      <div class="card-body">
+        <div class="tag">FULL PRODUCT</div>
+        <ul>
+          <li>7 cardiac screening views</li>
+          <li>Segmental anatomy (20 fields)</li>
+          <li>Rhythm &amp; AV conduction</li>
+          <li>Fetal Doppler &amp; biometry</li>
+          <li>PDF download enabled</li>
+        </ul>
+        <a class="btn" href="../files /fetal_echo.html" target="_blank">Open Fetal App</a>
+        <a class="btn-demo" href="../files /fetal_echo_demo.html" target="_blank">Try Demo First</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>EchoReport Pro &mdash; Full Product Hub &nbsp;|&nbsp; Try before you subscribe: <a href="../demo showcase/index.html" style="color:#0f5f6f">Demo Showcase</a></footer>
+</body>
+</html>

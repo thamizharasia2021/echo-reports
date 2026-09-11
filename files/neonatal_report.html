@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Showcase - Neonatal Echocardiography Reporting System</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0a2540;
+    --teal: #0e7490;
+    --teal-light: #e0f2fe;
+    --accent: #f0a500;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-400: #94a3b8;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --red: #dc2626;
+    --green: #16a34a;
+    --border: #cbd5e1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* BANNER */
+  .showcase-banner {
+    background: var(--accent);
+    color: var(--navy);
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 36px 24px 30px;
+    text-align: center;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  header p {
+    color: #94a3b8;
+    font-size: 14px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* FEATURES SECTION */
+  .features-section {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 28px 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .features-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 14px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--gray-600);
+  }
+  .feature-item::before {
+    content: "✓";
+    color: var(--teal);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* SUBSCRIPTION */
+  .sub-section {
+    background: var(--teal-light);
+    border: 1px solid #bae6fd;
+    border-radius: 10px;
+    padding: 22px 24px;
+    max-width: 860px;
+    margin: 20px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sub-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--navy);
+    font-weight: 700;
+  }
+  .sub-price span { font-size: 1rem; color: var(--gray-600); font-family: 'Source Sans 3', sans-serif; font-weight: 400; }
+  .sub-includes { font-size: 13px; color: var(--gray-600); }
+  .sub-includes li { list-style: none; padding: 2px 0; }
+  .sub-includes li::before { content: "• "; color: var(--teal); }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #0c6480; }
+  .btn-outline {
+    background: white;
+    color: var(--teal);
+    border: 1.5px solid var(--teal);
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--teal-light); }
+
+  /* NOTE BOX */
+  .note-box {
+    background: #fff7ed;
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--gray-600);
+    max-width: 860px;
+    margin: 16px auto 0;
+  }
+
+  /* MAIN FORM */
+  .main-wrap {
+    max-width: 860px;
+    margin: 24px auto 40px;
+    padding: 0 16px;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .card-header {
+    background: var(--navy);
+    color: white;
+    padding: 12px 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .card-body { padding: 20px; }
+
+  /* FORM ELEMENTS */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  input[type="text"], input[type="date"], input[type="number"], select, textarea {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--gray-800);
+    background: white;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(14,116,144,0.1);
+  }
+  textarea { resize: vertical; min-height: 70px; }
+
+  /* FINDING ROWS */
+  .finding-note {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+  .finding-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px;
+    align-items: start;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .finding-row:last-child { border-bottom: none; margin-bottom: 0; }
+  .finding-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    padding-top: 8px;
+  }
+  .finding-select-wrap { display: flex; flex-direction: column; gap: 6px; }
+  .other-input { display: none; }
+  .other-input.visible { display: block; }
+
+  /* MEASUREMENTS */
+  .meas-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .meas-table th {
+    background: var(--gray-100);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .meas-table td { padding: 6px 8px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+  .meas-table input { border: 1px solid var(--border); border-radius: 4px; padding: 5px 8px; font-size: 13px; width: 100%; }
+  .meas-table select { font-size: 12px; padding: 5px 6px; }
+
+  /* IMPRESSION */
+  .impression-checks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .check-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--gray-700); }
+  .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+  .add-line-btn {
+    background: none;
+    border: 1.5px dashed var(--teal);
+    color: var(--teal);
+    padding: 7px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+  }
+  .add-line-btn:hover { background: var(--teal-light); }
+  .gen-btn {
+    background: var(--teal);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    transition: background 0.2s;
+    margin-bottom: 14px;
+  }
+  .gen-btn:hover { background: #0c6480; }
+
+  /* DOCTOR */
+  .doctor-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .action-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+  .btn-action {
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: 'Source Sans 3', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-update { background: var(--navy); color: white; }
+  .btn-update:hover { background: #0d3a6e; }
+  .btn-pdf { background: var(--gray-200); color: var(--gray-600); cursor: not-allowed; }
+  .btn-print { background: var(--teal); color: white; }
+  .btn-print:hover { background: #0c6480; }
+  .btn-reset { background: white; color: var(--red); border: 1.5px solid var(--red); }
+  .btn-reset:hover { background: #fef2f2; }
+
+  /* REPORT PREVIEW */
+  .report-preview {
+    background: white;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 32px;
+    font-family: 'Source Sans 3', sans-serif;
+    margin-bottom: 20px;
+  }
+  .report-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    text-align: center;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+  .report-subtitle {
+    text-align: center;
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .report-divider { border: none; border-top: 2px solid var(--navy); margin: 12px 0; }
+  .report-thin-divider { border: none; border-top: 1px solid var(--gray-200); margin: 10px 0; }
+  .report-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; font-size: 13.5px; }
+  .report-field strong { color: var(--navy); font-weight: 600; }
+  .report-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--teal);
+    margin: 14px 0 6px;
+  }
+  .report-impression {
+    background: var(--gray-50);
+    border-left: 3px solid var(--teal);
+    padding: 10px 14px;
+    font-size: 13.5px;
+    color: var(--gray-800);
+    white-space: pre-wrap;
+    min-height: 60px;
+    border-radius: 0 4px 4px 0;
+  }
+  .report-sign-area {
+    margin-top: 24px;
+    border-top: 1px solid var(--gray-800);
+    padding-top: 6px;
+    font-size: 12px;
+    color: var(--gray-600);
+  }
+
+  /* CONTACT SECTION */
+  .contact-section {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 28px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .contact-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  .contact-section p { font-size: 14px; color: #94a3b8; }
+
+  @media (max-width: 600px) {
+    .form-row, .form-row.three, .doctor-row { grid-template-columns: 1fr; }
+    .finding-row { grid-template-columns: 1fr; }
+    .finding-label { padding-top: 0; }
+    header h1 { font-size: 1.4rem; }
+    .sub-section { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="showcase-banner">
+  SHOWCASE VERSION — for feature demonstration only. Full access and PDF export available after subscription.
+</div>
+
+<header>
+  <h1>Neonatal Echocardiography Reporting System</h1>
+  <p>Professional Echo Reporting Platform for Neonatologists, NICU Teams, and Pediatric Cardiologists</p>
+</header>
+
+<!-- FEATURES -->
+<div class="features-section">
+  <h2>Features Available</h2>
+  <div class="features-grid">
+    <div class="feature-item">Comprehensive Neonatal Echo Reporting</div>
+    <div class="feature-item">NICU-Specific Findings & Dropdowns</div>
+    <div class="feature-item">PDA Assessment & Grading</div>
+    <div class="feature-item">Segmental Anatomy Assessment</div>
+    <div class="feature-item">2D Measurements with Z-scores</div>
+    <div class="feature-item">M-Mode & Doppler Measurements</div>
+    <div class="feature-item">Guided Impression Generation</div>
+    <div class="feature-item">Doctor Profile Management</div>
+    <div class="feature-item">Automatic PDF Report Generation</div>
+    <div class="feature-item">Hospital Branding Support</div>
+    <div class="feature-item">Gestational Age Normatives</div>
+    <div class="feature-item">Subscription Based Access</div>
+  </div>
+</div>
+
+<!-- SUBSCRIPTION -->
+<div class="sub-section">
+  <div>
+    <div class="sub-price">₹2000 <span>/ month</span></div>
+    <ul class="sub-includes" style="margin-top:8px;">
+      <li>Unlimited neonatal echo reports</li>
+      <li>PDF export in subscribed version</li>
+      <li>Doctor profile storage</li>
+      <li>Future updates and feature improvements</li>
+    </ul>
+  </div>
+  <div class="btn-group">
+    <a href="#" class="btn-primary">Subscribe Now</a>
+    <a href="#demoForm" class="btn-outline">View Demo</a>
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong> This showcase does not collect payment or upload files. Payment is handled separately.<br>
+  <strong>Demo purpose:</strong> Clinicians can try dropdown findings, custom typing, impression generation, and report preview. PDF download is disabled in this showcase version.
+</div>
+
+<!-- MAIN FORM -->
+<div class="main-wrap" id="demoForm">
+
+  <!-- PATIENT DETAILS -->
+  <div class="card">
+    <div class="card-header">Patient Details</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Baby Name / Mother's Name</label>
+          <input type="text" id="patName" placeholder="e.g. Baby of Mrs. Priya"/>
+        </div>
+        <div class="form-group">
+          <label>Gestational Age / Postnatal Age</label>
+          <input type="text" id="patAge" placeholder="e.g. 30 weeks GA, DOL 3"/>
+        </div>
+      </div>
+      <div class="form-row three">
+        <div class="form-group">
+          <label>Birth Weight (kg)</label>
+          <input type="number" id="patWeight" step="0.01" placeholder="e.g. 1.25"/>
+        </div>
+        <div class="form-group">
+          <label>ID No</label>
+          <input type="text" id="patId" placeholder="Hospital ID"/>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="patDate"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Indication</label>
+          <select id="patIndication">
+            <option value="">Select indication</option>
+            <option>PDA assessment</option>
+            <option>Murmur evaluation</option>
+            <option>Respiratory distress</option>
+            <option>Cyanosis evaluation</option>
+            <option>Preterm cardiac screening</option>
+            <option>Follow-up echo</option>
+            <option>Surgical clearance</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>NICU / Ward</label>
+          <input type="text" id="patWard" placeholder="e.g. NICU Bed 4"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGMENTAL ANATOMY -->
+  <div class="card">
+    <div class="card-header">Segmental Anatomy</div>
+    <div class="card-body">
+      <p class="finding-note">Choose standard findings or use Other/custom remarks.</p>
+
+      <div id="segmentalFindings">
+        <!-- JS renders finding rows here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- PDA ASSESSMENT -->
+  <div class="card">
+    <div class="card-header">PDA Assessment (Neonatal Specific)</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ductus Arteriosus</label>
+          <select id="pdaStatus">
+            <option value="">Select</option>
+            <option>No PDA / Closed ductus</option>
+            <option>Small PDA, left to right shunt</option>
+            <option>Moderate PDA, significant shunt</option>
+            <option>Large PDA, haemodynamically significant</option>
+            <option>Bidirectional shunt through PDA</option>
+            <option>Right to left shunt through PDA</option>
+            <option>PDA with PAH</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>PDA Size (mm)</label>
+          <input type="number" id="pdaSize" placeholder="e.g. 2.5" step="0.1"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>LA:Ao Ratio</label>
+          <input type="number" id="laAo" placeholder="e.g. 1.4" step="0.1"/>
+        </div>
+        <div class="form-group">
+          <label>PDA Haemodynamic Significance</label>
+          <select id="pdaHemo">
+            <option value="">Select</option>
+            <option>Not haemodynamically significant</option>
+            <option>Haemodynamically significant PDA (hsPDA)</option>
+            <option>Borderline significance</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>PDA Remarks</label>
+          <textarea id="pdaRemarks" placeholder="Additional PDA findings..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2D MEASUREMENTS -->
+  <div class="card">
+    <div class="card-header">2D Measurements [mm / z-score]</div>
+    <div class="card-body">
+      <p class="finding-note">Enter value and choose interpretation status. Z-scores based on gestational age normatives.</p>
+      <table class="meas-table">
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Value (mm)</th>
+            <th>Z-score</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="measTable2D">
+          <!-- JS renders rows -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- M-MODE / DOPPLER -->
+  <div class="card">
+    <div class="card-header">M-Mode / Doppler</div>
+    <div class="card-body">
+      <p class="finding-note">Pulsed Doppler velocities</p>
+      <table class="meas-table">
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+            <th>Unit</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="measTableDoppler">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- IMPRESSION -->
+  <div class="card">
+    <div class="card-header">Impression & Doctor Details</div>
+    <div class="card-body">
+      <p class="finding-note">Select relevant key findings and generate a draft impression. Final editing is available.</p>
+
+      <div class="impression-checks" id="impressionChecks">
+        <!-- JS renders checkboxes -->
+      </div>
+
+      <button class="add-line-btn" onclick="addImpressionLine()">+ Additional impression line</button>
+      <div id="extraLines"></div>
+
+      <button class="gen-btn" onclick="generateImpression()">Generate Impression</button>
+
+      <div class="form-group" style="margin-bottom:20px;">
+        <label>Impression</label>
+        <textarea id="impressionText" style="min-height:100px;" placeholder="Generated impression will appear here. You may edit freely."></textarea>
+      </div>
+
+      <div class="doctor-row">
+        <div class="form-group">
+          <label>Doctor Name</label>
+          <input type="text" id="drName" placeholder="Dr. Name"/>
+        </div>
+        <div class="form-group">
+          <label>Designation / Qualification</label>
+          <input type="text" id="drDesig" placeholder="e.g. Neonatologist, DM"/>
+        </div>
+        <div class="form-group">
+          <label>Registration No</label>
+          <input type="text" id="drReg" placeholder="Reg. No."/>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn-action btn-update" onclick="updatePreview()">Update Preview</button>
+        <button class="btn-action btn-pdf" disabled title="PDF disabled in showcase">Download PDF Report</button>
+        <button class="btn-action btn-print" onclick="window.print()">Print Sample</button>
+        <button class="btn-action btn-reset" onclick="resetForm()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT PREVIEW -->
+  <div class="report-preview" id="reportPreview">
+    <div class="report-title">Neonatal Echocardiography Report</div>
+    <div class="report-subtitle">Showcase Preview</div>
+    <hr class="report-divider"/>
+
+    <div class="report-field-row">
+      <div><strong>Baby Name:</strong> <span id="rName">—</span></div>
+      <div><strong>GA / Postnatal Age:</strong> <span id="rAge">—</span></div>
+    </div>
+    <div class="report-field-row">
+      <div><strong>Birth Weight:</strong> <span id="rWeight">—</span> kg</div>
+      <div><strong>ID No:</strong> <span id="rId">—</span></div>
+    </div>
+    <div class="report-field-row">
+      <div><strong>Date:</strong> <span id="rDate">—</span></div>
+      <div><strong>Indication:</strong> <span id="rIndication">—</span></div>
+    </div>
+    <div class="report-field-row">
+      <div><strong>NICU / Ward:</strong> <span id="rWard">—</span></div>
+    </div>
+
+    <hr class="report-divider"/>
+
+    <div class="report-section-title">Segmental Anatomy</div>
+    <div id="rSegmental" style="font-size:13.5px; color:#374151;">—</div>
+
+    <hr class="report-thin-divider"/>
+
+    <div class="report-section-title">PDA Assessment</div>
+    <div id="rPDA" style="font-size:13.5px; color:#374151;">—</div>
+
+    <hr class="report-thin-divider"/>
+
+    <div class="report-section-title">2D Measurements [mm / z scores]</div>
+    <div id="r2D" style="font-size:13px; color:#374151;">—</div>
+
+    <hr class="report-thin-divider"/>
+
+    <div class="report-section-title">M-Mode / Doppler</div>
+    <div id="rDoppler" style="font-size:13px; color:#374151;">—</div>
+
+    <hr class="report-divider"/>
+
+    <div class="report-section-title">IMPRESSION</div>
+    <div class="report-impression" id="rImpression">—</div>
+
+    <div class="report-sign-area" style="margin-top:30px;">
+      <strong id="rDrName">—</strong><br/>
+      <span id="rDrDesig" style="font-size:12px;">—</span><br/>
+      <span id="rDrReg" style="font-size:12px;">Reg. No: —</span><br/>
+      <span style="font-size:11px; color:#9ca3af;">Doctor may sign manually above this line.</span>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section">
+    <h3>Interested?</h3>
+    <p>Contact Administrator through WhatsApp or Email for subscription activation.</p>
+    <p style="margin-top:10px;"><strong>WhatsApp:</strong> +91 XXXXXXXXXX &nbsp;|&nbsp; <strong>Email:</strong> your@email.com</p>
+  </div>
+
+</div><!-- end main-wrap -->
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const segmentalFields = [
+  { label: "Situs", options: ["Situs Solitus","Situs Inversus","Situs Ambiguous","Indeterminate","Other"] },
+  { label: "Cardiac position", options: ["Levocardia","Dextrocardia","Mesocardia","Indeterminate","Other"] },
+  { label: "Systemic veins", options: ["Normal","LSVC present","Interrupted IVC","Abnormal systemic venous drainage","Indeterminate","Other"] },
+  { label: "Pulmonary veins", options: ["Normal","PAPVC","TAPVC","Pulmonary venous obstruction","Not well visualized","Indeterminate","Other"] },
+  { label: "Inter-atrial septum", options: ["Intact","PFO","ASD secundum","ASD primum","Sinus venosus ASD","Large ASD","Indeterminate","Other"] },
+  { label: "Inter-ventricular septum", options: ["Intact","Perimembranous VSD","Muscular VSD","Inlet VSD","Outlet VSD","Multiple VSDs","Indeterminate","Other"] },
+  { label: "Right atrium", options: ["Normal","Dilated","Hypoplastic","Abnormal","Indeterminate","Other"] },
+  { label: "Left atrium", options: ["Normal","Dilated","Hypoplastic","Abnormal","Indeterminate","Other"] },
+  { label: "Right ventricle", options: ["Normal","Dilated","Hypertrophied","Hypoplastic","Reduced function","Indeterminate","Other"] },
+  { label: "Left ventricle", options: ["Normal","Dilated","Hypertrophied","Hypoplastic","Reduced systolic function","Indeterminate","Other"] },
+  { label: "AV connection", options: ["Concordant","Discordant","Common AV connection","Ambiguous","Indeterminate","Other"] },
+  { label: "VA connection", options: ["Concordant","Discordant","DORV","DOLV","Single outlet","Indeterminate","Other"] },
+  { label: "Tricuspid valve", options: ["Normal","Mild TR","Moderate TR","Severe TR","Tricuspid stenosis","Ebstein anomaly","Other"] },
+  { label: "Mitral valve", options: ["Normal, no MR/MS","Mild MR","Moderate MR","Severe MR","Mitral stenosis","Other"] },
+  { label: "Aortic valve", options: ["Tricuspid, no AS/AR","Bicuspid aortic valve","Mild AS","Moderate AS","Severe AS","Mild AR","Other"] },
+  { label: "Aorta", options: ["Normal","Dilated aortic root","Coarctation suspected","Interrupted aortic arch","Hypoplastic arch","Other"] },
+  { label: "Coronary arteries", options: ["Normal","Not well visualized","Anomalous origin suspected","Dilated coronary arteries","Other"] },
+  { label: "Pulmonary valve", options: ["Normal, no PS/PR","Mild PS","Moderate PS","Severe PS","Pulmonary atresia","Mild PR","Other"] },
+  { label: "Main pulmonary artery", options: ["Normal","Dilated","Hypoplastic","Stenotic","Other"] },
+  { label: "Branch pulmonary arteries", options: ["Confluent, good sized","RPA stenosis","LPA stenosis","Hypoplastic branch PAs","Other"] },
+  { label: "Aortic arch", options: ["Left sided, no CoA/PDA","Right aortic arch","CoA present","PDA present","Other"] },
+  { label: "Pericardium", options: ["No pericardial effusion","Normal","Mild pericardial effusion","Moderate pericardial effusion","Severe pericardial effusion","Other"] },
+];
+
+const meas2DParams = [
+  "Aortic root (AO)", "Pulmonary artery (MPA)", "Left atrium (LA)", "Right ventricle (RV)",
+  "Left ventricle diastole (LVIDd)", "Left ventricle systole (LVIDs)",
+  "IVS diastole (IVSd)", "Posterior wall diastole (LVPWd)",
+];
+
+const dopplerParams = [
+  { name: "Mitral E velocity", unit: "m/s" },
+  { name: "Mitral A velocity", unit: "m/s" },
+  { name: "Tricuspid regurgitation velocity", unit: "m/s" },
+  { name: "RVSP (estimated)", unit: "mmHg" },
+  { name: "Aortic peak velocity", unit: "m/s" },
+  { name: "Pulmonary peak velocity", unit: "m/s" },
+  { name: "Ductal flow velocity", unit: "m/s" },
+  { name: "Ejection fraction (EF)", unit: "%" },
+  { name: "Fractional shortening (FS)", unit: "%" },
+];
+
+const impressionOptions = [
+  "Situs solitus, levocardia",
+  "Normal segmental anatomy",
+  "No intracardiac defects",
+  "No haemodynamically significant PDA",
+  "Haemodynamically significant PDA (hsPDA)",
+  "Normal biventricular function",
+  "No evidence of PAH",
+  "No pericardial effusion",
+  "ASD present",
+  "VSD present",
+  "PDA — medical management recommended",
+  "PDA — surgical/interventional ligation recommended",
+  "Structurally normal heart",
+];
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+
+function renderSegmental() {
+  const container = document.getElementById('segmentalFindings');
+  container.innerHTML = segmentalFields.map((f, i) => `
+    <div class="finding-row">
+      <div class="finding-label">${f.label}</div>
+      <div class="finding-select-wrap">
+        <select id="seg_${i}" onchange="toggleOther(this,'seg_other_${i}')">
+          <option value="">Select</option>
+          ${f.options.map(o => `<option>${o}</option>`).join('')}
+        </select>
+        <input type="text" id="seg_other_${i}" class="other-input" placeholder="Specify other finding..."/>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMeas2D() {
+  const tbody = document.getElementById('measTable2D');
+  tbody.innerHTML = meas2DParams.map(p => `
+    <tr>
+      <td style="font-weight:500;font-size:13px;">${p}</td>
+      <td><input type="number" placeholder="—" step="0.1"/></td>
+      <td><input type="number" placeholder="—" step="0.1"/></td>
+      <td>
+        <select>
+          <option value="">—</option>
+          <option>Normal</option>
+          <option>Mildly enlarged</option>
+          <option>Moderately enlarged</option>
+          <option>Severely enlarged</option>
+          <option>Mildly reduced</option>
+          <option>Moderately reduced</option>
+          <option>Not measured</option>
+        </select>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderDoppler() {
+  const tbody = document.getElementById('measTableDoppler');
+  tbody.innerHTML = dopplerParams.map(p => `
+    <tr>
+      <td style="font-weight:500;font-size:13px;">${p.name}</td>
+      <td><input type="number" placeholder="—" step="0.01"/></td>
+      <td style="font-size:12px;color:#64748b;">${p.unit}</td>
+      <td>
+        <select>
+          <option value="">—</option>
+          <option>Normal</option>
+          <option>Elevated</option>
+          <option>Reduced</option>
+          <option>Not recorded</option>
+        </select>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderImpressionChecks() {
+  const container = document.getElementById('impressionChecks');
+  container.innerHTML = impressionOptions.map((opt, i) => `
+    <div class="check-item">
+      <input type="checkbox" id="imp_${i}" value="${opt}"/>
+      <label for="imp_${i}" style="text-transform:none;letter-spacing:0;font-size:13.5px;font-weight:400;color:#374151;cursor:pointer;">${opt}</label>
+    </div>
+  `).join('');
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function toggleOther(select, otherId) {
+  const other = document.getElementById(otherId);
+  if (select.value === 'Other') {
+    other.classList.add('visible');
+  } else {
+    other.classList.remove('visible');
+    other.value = '';
+  }
+}
+
+let extraLineCount = 0;
+function addImpressionLine() {
+  extraLineCount++;
+  const div = document.createElement('div');
+  div.style.marginBottom = '8px';
+  div.innerHTML = `<input type="text" id="extra_${extraLineCount}" placeholder="Additional finding..." style="width:100%;"/>`;
+  document.getElementById('extraLines').appendChild(div);
+}
+
+function generateImpression() {
+  const checked = [...document.querySelectorAll('#impressionChecks input[type="checkbox"]:checked')]
+    .map(cb => cb.value);
+
+  const extras = [...document.querySelectorAll('#extraLines input')]
+    .map(i => i.value.trim()).filter(Boolean);
+
+  const all = [...checked, ...extras];
+  document.getElementById('impressionText').value = all.length
+    ? all.join('.\n') + '.'
+    : 'No findings selected.';
+}
+
+function updatePreview() {
+  document.getElementById('rName').textContent = document.getElementById('patName').value || '—';
+  document.getElementById('rAge').textContent = document.getElementById('patAge').value || '—';
+  document.getElementById('rWeight').textContent = document.getElementById('patWeight').value || '—';
+  document.getElementById('rId').textContent = document.getElementById('patId').value || '—';
+  document.getElementById('rDate').textContent = document.getElementById('patDate').value || '—';
+  document.getElementById('rIndication').textContent = document.getElementById('patIndication').value || '—';
+  document.getElementById('rWard').textContent = document.getElementById('patWard').value || '—';
+
+  // Segmental
+  const segs = segmentalFields.map((f, i) => {
+    const sel = document.getElementById(`seg_${i}`);
+    const other = document.getElementById(`seg_other_${i}`);
+    if (!sel.value) return null;
+    const val = sel.value === 'Other' && other.value ? other.value : sel.value;
+    return `${f.label}: ${val}`;
+  }).filter(Boolean);
+  document.getElementById('rSegmental').textContent = segs.join(' | ') || '—';
+
+  // PDA
+  const pdaParts = [];
+  const pdaSt = document.getElementById('pdaStatus').value;
+  const pdaSz = document.getElementById('pdaSize').value;
+  const pdaH = document.getElementById('pdaHemo').value;
+  const pdaR = document.getElementById('pdaRemarks').value;
+  const laAoV = document.getElementById('laAo').value;
+  if (pdaSt) pdaParts.push(pdaSt);
+  if (pdaSz) pdaParts.push(`Size: ${pdaSz} mm`);
+  if (laAoV) pdaParts.push(`LA:Ao ratio: ${laAoV}`);
+  if (pdaH) pdaParts.push(pdaH);
+  if (pdaR) pdaParts.push(pdaR);
+  document.getElementById('rPDA').textContent = pdaParts.join('. ') || '—';
+
+  // Impression
+  document.getElementById('rImpression').textContent = document.getElementById('impressionText').value || '—';
+
+  // Doctor
+  const drName = document.getElementById('drName').value;
+  const drDesig = document.getElementById('drDesig').value;
+  const drReg = document.getElementById('drReg').value;
+  document.getElementById('rDrName').textContent = drName || '—';
+  document.getElementById('rDrDesig').textContent = drDesig || '—';
+  document.getElementById('rDrReg').textContent = drReg ? `Reg. No: ${drReg}` : 'Reg. No: —';
+
+  document.getElementById('reportPreview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  if (!confirm('Reset all fields?')) return;
+  document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], textarea').forEach(el => el.value = '');
+  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+  document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+  document.querySelectorAll('.other-input').forEach(el => el.classList.remove('visible'));
+  document.getElementById('extraLines').innerHTML = '';
+  extraLineCount = 0;
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderSegmental();
+renderMeas2D();
+renderDoppler();
+renderImpressionChecks();
+document.getElementById('patDate').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
