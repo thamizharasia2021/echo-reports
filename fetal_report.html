@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Showcase - Fetal Echocardiography Reporting System</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0a2540;
+    --rose: #be185d;
+    --rose-light: #fdf2f8;
+    --accent: #f59e0b;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-400: #94a3b8;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --red: #dc2626;
+    --border: #cbd5e1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .showcase-banner {
+    background: var(--accent);
+    color: var(--navy);
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 36px 24px 30px;
+    text-align: center;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  header p { color: #94a3b8; font-size: 14px; max-width: 560px; margin: 0 auto; }
+
+  .features-section {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 28px 24px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .features-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 14px;
+  }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+  .feature-item { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--gray-600); }
+  .feature-item::before { content: "✓"; color: var(--rose); font-weight: 700; flex-shrink: 0; }
+
+  .sub-section {
+    background: var(--rose-light);
+    border: 1px solid #fbcfe8;
+    border-radius: 10px;
+    padding: 22px 24px;
+    max-width: 860px;
+    margin: 20px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sub-price { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); font-weight: 700; }
+  .sub-price span { font-size: 1rem; color: var(--gray-600); font-family: 'Source Sans 3', sans-serif; font-weight: 400; }
+  .sub-includes { font-size: 13px; color: var(--gray-600); }
+  .sub-includes li { list-style: none; padding: 2px 0; }
+  .sub-includes li::before { content: "• "; color: var(--rose); }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary { background: var(--rose); color: white; border: none; padding: 10px 22px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
+  .btn-primary:hover { background: #9d174d; }
+  .btn-outline { background: white; color: var(--rose); border: 1.5px solid var(--rose); padding: 10px 22px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+  .btn-outline:hover { background: var(--rose-light); }
+
+  .note-box { background: #fff7ed; border-left: 4px solid var(--accent); border-radius: 4px; padding: 12px 16px; font-size: 13px; color: var(--gray-600); max-width: 860px; margin: 16px auto 0; }
+
+  .main-wrap { max-width: 860px; margin: 24px auto 40px; padding: 0 16px; }
+
+  .card { background: white; border: 1px solid var(--gray-200); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+  .card-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; }
+  .card-body { padding: 20px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  label { font-size: 12.5px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.4px; }
+  input[type="text"], input[type="date"], input[type="number"], select, textarea {
+    border: 1.5px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 14px;
+    font-family: 'Source Sans 3', sans-serif; color: var(--gray-800); background: white;
+    transition: border-color 0.2s; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(190,24,93,0.1); }
+  textarea { resize: vertical; min-height: 70px; }
+
+  .finding-note { font-size: 12px; color: var(--gray-400); margin-bottom: 14px; font-style: italic; }
+  .finding-row { display: grid; grid-template-columns: 170px 1fr; gap: 10px; align-items: start; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-100); }
+  .finding-row:last-child { border-bottom: none; margin-bottom: 0; }
+  .finding-label { font-size: 13px; font-weight: 600; color: var(--navy); padding-top: 8px; }
+  .finding-select-wrap { display: flex; flex-direction: column; gap: 6px; }
+  .other-input { display: none; }
+  .other-input.visible { display: block; }
+
+  .meas-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .meas-table th { background: var(--gray-100); padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 1px solid var(--gray-200); }
+  .meas-table td { padding: 6px 8px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+  .meas-table input { border: 1px solid var(--border); border-radius: 4px; padding: 5px 8px; font-size: 13px; width: 100%; }
+  .meas-table select { font-size: 12px; padding: 5px 6px; }
+
+  .impression-checks { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .check-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; }
+  .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--rose); cursor: pointer; }
+  .add-line-btn { background: none; border: 1.5px dashed var(--rose); color: var(--rose); padding: 7px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; margin-bottom: 14px; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+  .add-line-btn:hover { background: var(--rose-light); }
+  .gen-btn { background: var(--rose); color: white; border: none; padding: 10px 24px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Source Sans 3', sans-serif; transition: background 0.2s; margin-bottom: 14px; }
+  .gen-btn:hover { background: #9d174d; }
+
+  .doctor-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .action-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+  .btn-action { padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 600; cursor: pointer; border: none; font-family: 'Source Sans 3', sans-serif; transition: all 0.2s; }
+  .btn-update { background: var(--navy); color: white; }
+  .btn-update:hover { background: #0d3a6e; }
+  .btn-pdf { background: var(--gray-200); color: var(--gray-600); cursor: not-allowed; }
+  .btn-print { background: var(--rose); color: white; }
+  .btn-print:hover { background: #9d174d; }
+  .btn-reset { background: white; color: var(--red); border: 1.5px solid var(--red); }
+  .btn-reset:hover { background: #fef2f2; }
+
+  .report-preview { background: white; border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 32px; font-family: 'Source Sans 3', sans-serif; margin-bottom: 20px; }
+  .report-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); text-align: center; margin-bottom: 4px; font-weight: 700; }
+  .report-subtitle { text-align: center; font-size: 12px; color: var(--gray-400); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+  .report-divider { border: none; border-top: 2px solid var(--navy); margin: 12px 0; }
+  .report-thin-divider { border: none; border-top: 1px solid var(--gray-200); margin: 10px 0; }
+  .report-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; font-size: 13.5px; }
+  .report-field strong { color: var(--navy); font-weight: 600; }
+  .report-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--rose); margin: 14px 0 6px; }
+  .report-impression { background: var(--gray-50); border-left: 3px solid var(--rose); padding: 10px 14px; font-size: 13.5px; color: var(--gray-800); white-space: pre-wrap; min-height: 60px; border-radius: 0 4px 4px 0; }
+  .report-sign-area { margin-top: 24px; border-top: 1px solid var(--gray-800); padding-top: 6px; font-size: 12px; color: var(--gray-600); }
+
+  .contact-section { background: var(--navy); color: white; text-align: center; padding: 28px 20px; border-radius: 10px; margin-bottom: 20px; }
+  .contact-section h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 10px; }
+  .contact-section p { font-size: 14px; color: #94a3b8; }
+
+  @media (max-width: 600px) {
+    .form-row, .form-row.three, .doctor-row { grid-template-columns: 1fr; }
+    .finding-row { grid-template-columns: 1fr; }
+    .finding-label { padding-top: 0; }
+    header h1 { font-size: 1.4rem; }
+    .sub-section { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="showcase-banner">
+  SHOWCASE VERSION — for feature demonstration only. Full access and PDF export available after subscription.
+</div>
+
+<header>
+  <h1>Fetal Echocardiography Reporting System</h1>
+  <p>Professional Fetal Echo Reporting Platform for Fetal Medicine Specialists, Obstetricians & Pediatric Cardiologists</p>
+</header>
+
+<div class="features-section">
+  <h2>Features Available</h2>
+  <div class="features-grid">
+    <div class="feature-item">Comprehensive Fetal Echo Reporting</div>
+    <div class="feature-item">Four-Chamber View Assessment</div>
+    <div class="feature-item">Outflow Tract Evaluation</div>
+    <div class="feature-item">Segmental Anatomy Assessment</div>
+    <div class="feature-item">Fetal Biometry Integration</div>
+    <div class="feature-item">Doppler Measurements</div>
+    <div class="feature-item">Rhythm & Rate Assessment</div>
+    <div class="feature-item">Guided Impression Generation</div>
+    <div class="feature-item">Counselling Summary Output</div>
+    <div class="feature-item">Automatic PDF Report Generation</div>
+    <div class="feature-item">Hospital Branding Support</div>
+    <div class="feature-item">Subscription Based Access</div>
+  </div>
+</div>
+
+<div class="sub-section">
+  <div>
+    <div class="sub-price">₹2000 <span>/ month</span></div>
+    <ul class="sub-includes" style="margin-top:8px;">
+      <li>Unlimited fetal echo reports</li>
+      <li>PDF export in subscribed version</li>
+      <li>Doctor profile storage</li>
+      <li>Future updates and feature improvements</li>
+    </ul>
+  </div>
+  <div class="btn-group">
+    <a href="#" class="btn-primary">Subscribe Now</a>
+    <a href="#demoForm" class="btn-outline">View Demo</a>
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong> This showcase does not collect payment or upload files. Payment is handled separately.<br>
+  <strong>Demo purpose:</strong> Clinicians can try dropdown findings, custom typing, impression generation, and report preview. PDF download is disabled in this showcase version.
+</div>
+
+<div class="main-wrap" id="demoForm">
+
+  <!-- MATERNAL & SCAN DETAILS -->
+  <div class="card">
+    <div class="card-header">Maternal & Scan Details</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Mother's Name</label>
+          <input type="text" id="patName" placeholder="e.g. Mrs. Priya Sharma"/>
+        </div>
+        <div class="form-group">
+          <label>Age / Gravida Para</label>
+          <input type="text" id="patAge" placeholder="e.g. 28 yrs, G2P1"/>
+        </div>
+      </div>
+      <div class="form-row three">
+        <div class="form-group">
+          <label>Gestational Age (weeks)</label>
+          <input type="text" id="gestAge" placeholder="e.g. 22+3 weeks"/>
+        </div>
+        <div class="form-group">
+          <label>ID No</label>
+          <input type="text" id="patId" placeholder="Hospital ID"/>
+        </div>
+        <div class="form-group">
+          <label>Date of Scan</label>
+          <input type="date" id="patDate"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Referral Indication</label>
+          <select id="patIndication">
+            <option value="">Select indication</option>
+            <option>Routine anomaly scan</option>
+            <option>Suspected cardiac anomaly on anomaly scan</option>
+            <option>Family history of CHD</option>
+            <option>Maternal diabetes</option>
+            <option>Increased nuchal translucency</option>
+            <option>Chromosomal abnormality</option>
+            <option>Twin pregnancy</option>
+            <option>Fetal arrhythmia</option>
+            <option>Follow-up fetal echo</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Fetal Heart Rate (bpm)</label>
+          <input type="number" id="fhr" placeholder="e.g. 148"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fetal Position</label>
+          <select id="fetalPos">
+            <option value="">Select</option>
+            <option>Cephalic</option>
+            <option>Breech</option>
+            <option>Transverse</option>
+            <option>Oblique</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Image Quality</label>
+          <select id="imageQuality">
+            <option value="">Select</option>
+            <option>Good — all views obtained</option>
+            <option>Adequate — most views obtained</option>
+            <option>Limited — suboptimal views</option>
+            <option>Poor — repeat scan recommended</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDIAC SCREENING VIEWS -->
+  <div class="card">
+    <div class="card-header">Cardiac Screening Views</div>
+    <div class="card-body">
+      <p class="finding-note">Assessment of standard fetal echo views.</p>
+      <div id="screeningViews"></div>
+    </div>
+  </div>
+
+  <!-- SEGMENTAL ANATOMY -->
+  <div class="card">
+    <div class="card-header">Segmental Anatomy</div>
+    <div class="card-body">
+      <p class="finding-note">Choose standard findings or use Other/custom remarks.</p>
+      <div id="segmentalFindings"></div>
+    </div>
+  </div>
+
+  <!-- RHYTHM & RATE -->
+  <div class="card">
+    <div class="card-header">Cardiac Rhythm & Rate</div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Rhythm</label>
+          <select id="rhythm">
+            <option value="">Select</option>
+            <option>Regular sinus rhythm</option>
+            <option>Irregular rhythm — ectopic beats</option>
+            <option>Supraventricular tachycardia (SVT)</option>
+            <option>Atrial flutter</option>
+            <option>Complete heart block</option>
+            <option>Bradycardia</option>
+            <option>Other arrhythmia</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>AV Conduction</label>
+          <select id="avConduction">
+            <option value="">Select</option>
+            <option>Normal 1:1 AV conduction</option>
+            <option>First degree AV block</option>
+            <option>Second degree AV block</option>
+            <option>Complete (third degree) AV block</option>
+            <option>Not assessed</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Rhythm Remarks</label>
+          <textarea id="rhythmRemarks" placeholder="Additional rhythm findings..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOPPLER MEASUREMENTS -->
+  <div class="card">
+    <div class="card-header">Fetal Doppler Measurements</div>
+    <div class="card-body">
+      <p class="finding-note">Enter values where obtainable.</p>
+      <table class="meas-table">
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+            <th>Unit</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="measTableDoppler"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BIOMETRY -->
+  <div class="card">
+    <div class="card-header">Cardiac Biometry [mm]</div>
+    <div class="card-body">
+      <p class="finding-note">Fetal cardiac measurements at current gestational age.</p>
+      <table class="meas-table">
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Measurement (mm)</th>
+            <th>Expected for GA</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="measTable2D"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- IMPRESSION -->
+  <div class="card">
+    <div class="card-header">Impression & Doctor Details</div>
+    <div class="card-body">
+      <p class="finding-note">Select relevant key findings and generate a draft impression. Final editing is available.</p>
+      <div class="impression-checks" id="impressionChecks"></div>
+      <button class="add-line-btn" onclick="addImpressionLine()">+ Additional impression line</button>
+      <div id="extraLines"></div>
+      <button class="gen-btn" onclick="generateImpression()">Generate Impression</button>
+      <div class="form-group" style="margin-bottom:20px;">
+        <label>Impression</label>
+        <textarea id="impressionText" style="min-height:100px;" placeholder="Generated impression will appear here. You may edit freely."></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>Counselling Notes</label>
+        <textarea id="counsellingNotes" placeholder="Any counselling points for parents (optional)..." style="min-height:60px;"></textarea>
+      </div>
+      <div class="doctor-row">
+        <div class="form-group">
+          <label>Doctor Name</label>
+          <input type="text" id="drName" placeholder="Dr. Name"/>
+        </div>
+        <div class="form-group">
+          <label>Designation / Qualification</label>
+          <input type="text" id="drDesig" placeholder="e.g. Fetal Medicine Specialist"/>
+        </div>
+        <div class="form-group">
+          <label>Registration No</label>
+          <input type="text" id="drReg" placeholder="Reg. No."/>
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="btn-action btn-update" onclick="updatePreview()">Update Preview</button>
+        <button class="btn-action btn-pdf" disabled title="PDF disabled in showcase">Download PDF Report</button>
+        <button class="btn-action btn-print" onclick="window.print()">Print Sample</button>
+        <button class="btn-action btn-reset" onclick="resetForm()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT PREVIEW -->
+  <div class="report-preview" id="reportPreview">
+    <div class="report-title">Fetal Echocardiography Report</div>
+    <div class="report-subtitle">Showcase Preview</div>
+    <hr class="report-divider"/>
+    <div class="report-field-row">
+      <div><strong>Mother's Name:</strong> <span id="rName">—</span></div>
+      <div><strong>Age / Gravida Para:</strong> <span id="rAge">—</span></div>
+    </div>
+    <div class="report-field-row">
+      <div><strong>Gestational Age:</strong> <span id="rGestAge">—</span></div>
+      <div><strong>ID No:</strong> <span id="rId">—</span></div>
+    </div>
+    <div class="report-field-row">
+      <div><strong>Date of Scan:</strong> <span id="rDate">—</span></div>
+      <div><strong>Indication:</strong> <span id="rIndication">—</span></div>
+    </div>
+    <div class="report-field-row">
+      <div><strong>Fetal HR:</strong> <span id="rFHR">—</span> bpm</div>
+      <div><strong>Image Quality:</strong> <span id="rQuality">—</span></div>
+    </div>
+    <hr class="report-divider"/>
+    <div class="report-section-title">Cardiac Screening Views</div>
+    <div id="rViews" style="font-size:13.5px;color:#374151;">—</div>
+    <hr class="report-thin-divider"/>
+    <div class="report-section-title">Segmental Anatomy</div>
+    <div id="rSegmental" style="font-size:13.5px;color:#374151;">—</div>
+    <hr class="report-thin-divider"/>
+    <div class="report-section-title">Rhythm & Rate</div>
+    <div id="rRhythm" style="font-size:13.5px;color:#374151;">—</div>
+    <hr class="report-thin-divider"/>
+    <div class="report-section-title">Cardiac Biometry & Doppler</div>
+    <div id="rMeas" style="font-size:13px;color:#374151;">—</div>
+    <hr class="report-divider"/>
+    <div class="report-section-title">IMPRESSION</div>
+    <div class="report-impression" id="rImpression">—</div>
+    <div class="report-section-title" style="margin-top:14px;">COUNSELLING NOTES</div>
+    <div id="rCounselling" style="font-size:13px;color:#374151;font-style:italic;">—</div>
+    <div class="report-sign-area" style="margin-top:30px;">
+      <strong id="rDrName">—</strong><br/>
+      <span id="rDrDesig" style="font-size:12px;">—</span><br/>
+      <span id="rDrReg" style="font-size:12px;">Reg. No: —</span><br/>
+      <span style="font-size:11px;color:#9ca3af;">Doctor may sign manually above this line.</span>
+    </div>
+  </div>
+
+  <div class="contact-section">
+    <h3>Interested?</h3>
+    <p>Contact Administrator through WhatsApp or Email for subscription activation.</p>
+    <p style="margin-top:10px;"><strong>WhatsApp:</strong> +91 XXXXXXXXXX &nbsp;|&nbsp; <strong>Email:</strong> your@email.com</p>
+  </div>
+
+</div>
+
+<script>
+const screeningViewFields = [
+  { label: "Four-chamber view", options: ["Normal","Abnormal — cardiomegaly","Abnormal — asymmetric chambers","Abnormal — AVSD","Not well visualized","Other"] },
+  { label: "Left outflow tract (LVOT)", options: ["Normal","Abnormal — aortic override","Abnormal — LVOTO","Not well visualized","Other"] },
+  { label: "Right outflow tract (RVOT)", options: ["Normal","Abnormal — pulmonary stenosis","Abnormal — RVOTO","Not well visualized","Other"] },
+  { label: "Three-vessel view (3VV)", options: ["Normal","Abnormal — vessel size discrepancy","Abnormal — vessel position","Not well visualized","Other"] },
+  { label: "Three-vessel trachea (3VT)", options: ["Normal","Right aortic arch","Vascular ring suspected","Not well visualized","Other"] },
+  { label: "Ductal arch view", options: ["Normal","PDA — normal for gestation","Abnormal","Not well visualized","Other"] },
+  { label: "Aortic arch view", options: ["Normal — left sided","Right aortic arch","Coarctation suspected","Interrupted arch suspected","Not well visualized","Other"] },
+];
+
+const segmentalFields = [
+  { label: "Situs", options: ["Situs Solitus","Situs Inversus","Situs Ambiguous","Indeterminate","Other"] },
+  { label: "Cardiac position", options: ["Levocardia","Dextrocardia","Mesocardia","Cardiac axis normal (45°±20°)","Abnormal cardiac axis","Indeterminate","Other"] },
+  { label: "Systemic veins", options: ["Normal","LSVC present","Interrupted IVC","Abnormal systemic venous drainage","Indeterminate","Other"] },
+  { label: "Pulmonary veins", options: ["Normal — all four seen","PAPVC suspected","TAPVC suspected","Not well visualized","Indeterminate","Other"] },
+  { label: "Inter-atrial septum", options: ["Intact","PFO — normal for gestation","Large ASD","ASD primum","Sinus venosus ASD","Indeterminate","Other"] },
+  { label: "Inter-ventricular septum", options: ["Intact","Perimembranous VSD","Muscular VSD","Inlet VSD","Outlet VSD","Large VSD","Multiple VSDs","Indeterminate","Other"] },
+  { label: "Right atrium", options: ["Normal","Dilated","Hypoplastic","Abnormal","Indeterminate","Other"] },
+  { label: "Left atrium", options: ["Normal","Dilated","Hypoplastic","Abnormal","Indeterminate","Other"] },
+  { label: "Right ventricle", options: ["Normal","Dilated","Hypertrophied","Hypoplastic","Reduced function","Indeterminate","Other"] },
+  { label: "Left ventricle", options: ["Normal","Dilated","Hypertrophied","Hypoplastic","Echogenic focus present","Reduced systolic function","Indeterminate","Other"] },
+  { label: "AV connection", options: ["Concordant","Discordant","Common AV connection (AVSD)","Ambiguous","Indeterminate","Other"] },
+  { label: "VA connection", options: ["Concordant","Discordant — TGA","DORV","Single outlet","Indeterminate","Other"] },
+  { label: "Tricuspid valve", options: ["Normal","Mild TR","Moderate TR","Severe TR","Ebstein anomaly","Tricuspid atresia","Other"] },
+  { label: "Mitral valve", options: ["Normal","Mild MR","Moderate MR","Mitral atresia","Hypoplastic","Other"] },
+  { label: "Aortic valve", options: ["Tricuspid, normal","Bicuspid aortic valve","Mild AS","Severe AS","Aortic atresia","Other"] },
+  { label: "Pulmonary valve", options: ["Normal","Mild PS","Severe PS","Pulmonary atresia","Absent pulmonary valve","Other"] },
+  { label: "Aorta", options: ["Normal","Dilated aortic root","Coarctation suspected","Interrupted aortic arch","Hypoplastic arch","Other"] },
+  { label: "Main pulmonary artery", options: ["Normal","Dilated","Hypoplastic","Stenotic","Other"] },
+  { label: "Aortic arch", options: ["Left sided, normal","Right aortic arch","CoA suspected","IAA suspected","Other"] },
+  { label: "Pericardium", options: ["No pericardial effusion","Mild pericardial effusion","Moderate pericardial effusion","Severe pericardial effusion — hydrops","Other"] },
+];
+
+const dopplerParams = [
+  { name: "Mitral E/A ratio", unit: "ratio" },
+  { name: "Tricuspid E/A ratio", unit: "ratio" },
+  { name: "Pulmonary peak velocity", unit: "m/s" },
+  { name: "Aortic peak velocity", unit: "m/s" },
+  { name: "Ductus venosus (DV) PI", unit: "PI" },
+  { name: "Tricuspid regurgitation velocity", unit: "m/s" },
+  { name: "MV inflow — E velocity", unit: "m/s" },
+  { name: "PR interval (M-mode)", unit: "ms" },
+];
+
+const meas2DParams = [
+  "Cardiothoracic ratio (CT ratio)",
+  "RV diameter (transverse)",
+  "LV diameter (transverse)",
+  "Aortic root diameter",
+  "Main pulmonary artery diameter",
+  "LA transverse diameter",
+  "RA transverse diameter",
+];
+
+const impressionOptions = [
+  "Situs solitus, levocardia, normal cardiac axis",
+  "Structurally normal fetal heart",
+  "Normal four-chamber view",
+  "Normal outflow tracts",
+  "Normal three-vessel view",
+  "No intracardiac defects identified",
+  "Normal cardiac rhythm — regular",
+  "No pericardial effusion",
+  "Echogenic intracardiac focus (EIF) — soft marker",
+  "VSD identified — further evaluation recommended",
+  "ASD identified",
+  "Atrioventricular septal defect (AVSD)",
+  "Transposition of great arteries (TGA) suspected",
+  "Hypoplastic left heart syndrome (HLHS) suspected",
+  "Pulmonary stenosis / atresia suspected",
+  "Coarctation of aorta suspected",
+  "Fetal arrhythmia — cardiology review recommended",
+  "Repeat fetal echo recommended at 28–32 weeks",
+  "Postnatal echocardiography recommended",
+  "Multidisciplinary counselling recommended",
+];
+
+function renderViews() {
+  const c = document.getElementById('screeningViews');
+  c.innerHTML = screeningViewFields.map((f, i) => `
+    <div class="finding-row">
+      <div class="finding-label">${f.label}</div>
+      <div class="finding-select-wrap">
+        <select id="view_${i}" onchange="toggleOther(this,'view_other_${i}')">
+          <option value="">Select</option>
+          ${f.options.map(o => `<option>${o}</option>`).join('')}
+        </select>
+        <input type="text" id="view_other_${i}" class="other-input" placeholder="Specify..."/>
+      </div>
+    </div>`).join('');
+}
+
+function renderSegmental() {
+  const c = document.getElementById('segmentalFindings');
+  c.innerHTML = segmentalFields.map((f, i) => `
+    <div class="finding-row">
+      <div class="finding-label">${f.label}</div>
+      <div class="finding-select-wrap">
+        <select id="seg_${i}" onchange="toggleOther(this,'seg_other_${i}')">
+          <option value="">Select</option>
+          ${f.options.map(o => `<option>${o}</option>`).join('')}
+        </select>
+        <input type="text" id="seg_other_${i}" class="other-input" placeholder="Specify..."/>
+      </div>
+    </div>`).join('');
+}
+
+function renderDoppler() {
+  document.getElementById('measTableDoppler').innerHTML = dopplerParams.map(p => `
+    <tr>
+      <td style="font-weight:500;font-size:13px;">${p.name}</td>
+      <td><input type="number" placeholder="—" step="0.01"/></td>
+      <td style="font-size:12px;color:#64748b;">${p.unit}</td>
+      <td><select><option value="">—</option><option>Normal</option><option>Elevated</option><option>Reduced</option><option>Not recorded</option></select></td>
+    </tr>`).join('');
+}
+
+function renderMeas2D() {
+  document.getElementById('measTable2D').innerHTML = meas2DParams.map(p => `
+    <tr>
+      <td style="font-weight:500;font-size:13px;">${p}</td>
+      <td><input type="number" placeholder="—" step="0.1"/></td>
+      <td><input type="text" placeholder="—"/></td>
+      <td><select><option value="">—</option><option>Normal</option><option>Enlarged</option><option>Reduced</option><option>Not measured</option></select></td>
+    </tr>`).join('');
+}
+
+function renderImpressionChecks() {
+  document.getElementById('impressionChecks').innerHTML = impressionOptions.map((opt, i) => `
+    <div class="check-item">
+      <input type="checkbox" id="imp_${i}" value="${opt}"/>
+      <label for="imp_${i}" style="text-transform:none;letter-spacing:0;font-size:13.5px;font-weight:400;color:#374151;cursor:pointer;">${opt}</label>
+    </div>`).join('');
+}
+
+function toggleOther(select, otherId) {
+  const el = document.getElementById(otherId);
+  if (select.value === 'Other') { el.classList.add('visible'); }
+  else { el.classList.remove('visible'); el.value = ''; }
+}
+
+let extraLineCount = 0;
+function addImpressionLine() {
+  extraLineCount++;
+  const div = document.createElement('div');
+  div.style.marginBottom = '8px';
+  div.innerHTML = `<input type="text" id="extra_${extraLineCount}" placeholder="Additional finding..." style="width:100%;"/>`;
+  document.getElementById('extraLines').appendChild(div);
+}
+
+function generateImpression() {
+  const checked = [...document.querySelectorAll('#impressionChecks input[type="checkbox"]:checked')].map(cb => cb.value);
+  const extras = [...document.querySelectorAll('#extraLines input')].map(i => i.value.trim()).filter(Boolean);
+  const all = [...checked, ...extras];
+  document.getElementById('impressionText').value = all.length ? all.join('.\n') + '.' : 'No findings selected.';
+}
+
+function updatePreview() {
+  document.getElementById('rName').textContent = document.getElementById('patName').value || '—';
+  document.getElementById('rAge').textContent = document.getElementById('patAge').value || '—';
+  document.getElementById('rGestAge').textContent = document.getElementById('gestAge').value || '—';
+  document.getElementById('rId').textContent = document.getElementById('patId').value || '—';
+  document.getElementById('rDate').textContent = document.getElementById('patDate').value || '—';
+  document.getElementById('rIndication').textContent = document.getElementById('patIndication').value || '—';
+  document.getElementById('rFHR').textContent = document.getElementById('fhr').value || '—';
+  document.getElementById('rQuality').textContent = document.getElementById('imageQuality').value || '—';
+
+  const views = screeningViewFields.map((f, i) => {
+    const sel = document.getElementById(`view_${i}`);
+    const other = document.getElementById(`view_other_${i}`);
+    if (!sel.value) return null;
+    const val = sel.value === 'Other' && other.value ? other.value : sel.value;
+    return `${f.label}: ${val}`;
+  }).filter(Boolean);
+  document.getElementById('rViews').textContent = views.join(' | ') || '—';
+
+  const segs = segmentalFields.map((f, i) => {
+    const sel = document.getElementById(`seg_${i}`);
+    const other = document.getElementById(`seg_other_${i}`);
+    if (!sel.value) return null;
+    const val = sel.value === 'Other' && other.value ? other.value : sel.value;
+    return `${f.label}: ${val}`;
+  }).filter(Boolean);
+  document.getElementById('rSegmental').textContent = segs.join(' | ') || '—';
+
+  const rhythmParts = [];
+  if (document.getElementById('rhythm').value) rhythmParts.push(document.getElementById('rhythm').value);
+  if (document.getElementById('avConduction').value) rhythmParts.push(document.getElementById('avConduction').value);
+  if (document.getElementById('rhythmRemarks').value) rhythmParts.push(document.getElementById('rhythmRemarks').value);
+  document.getElementById('rRhythm').textContent = rhythmParts.join('. ') || '—';
+
+  document.getElementById('rImpression').textContent = document.getElementById('impressionText').value || '—';
+  document.getElementById('rCounselling').textContent = document.getElementById('counsellingNotes').value || '—';
+
+  const drName = document.getElementById('drName').value;
+  const drDesig = document.getElementById('drDesig').value;
+  const drReg = document.getElementById('drReg').value;
+  document.getElementById('rDrName').textContent = drName || '—';
+  document.getElementById('rDrDesig').textContent = drDesig || '—';
+  document.getElementById('rDrReg').textContent = drReg ? `Reg. No: ${drReg}` : 'Reg. No: —';
+
+  document.getElementById('reportPreview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetForm() {
+  if (!confirm('Reset all fields?')) return;
+  document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], textarea').forEach(el => el.value = '');
+  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+  document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+  document.querySelectorAll('.other-input').forEach(el => el.classList.remove('visible'));
+  document.getElementById('extraLines').innerHTML = '';
+  extraLineCount = 0;
+}
+
+// Init
+renderViews();
+renderSegmental();
+renderDoppler();
+renderMeas2D();
+renderImpressionChecks();
+document.getElementById('patDate').value = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>

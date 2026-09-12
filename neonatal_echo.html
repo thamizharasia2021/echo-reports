@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neonatal Echocardiography Report App - Full Product</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root{--primary:#0e7490;--accent:#ecfeff;--border:#a5f3fc;--dark:#1e293b}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f8fa;color:var(--dark)}
+    .hidden{display:none!important}
+    .screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#f4f8fa;display:flex;align-items:center;justify-content:center;z-index:9999}
+    .screen-card{background:white;border-radius:14px;padding:40px;width:400px;box-shadow:0 4px 24px rgba(0,0,0,.1)}
+    .screen-card h2{color:var(--primary);margin:0 0 8px;text-align:center}
+    .screen-card p{color:#666;font-size:14px;text-align:center;margin:0 0 20px}
+    .screen-card input{width:100%;padding:10px;margin-bottom:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px}
+    .screen-card button{width:100%;background:var(--primary);color:white;border:0;border-radius:8px;padding:12px;font-weight:bold;cursor:pointer;font-size:15px}
+    .screen-card .err{color:red;font-size:13px;text-align:center;margin-top:8px;min-height:18px}
+    .screen-card label{font-size:12px;font-weight:600;color:#555;margin-bottom:3px}
+    .screen-card .sub-row{display:flex;gap:10px;margin-top:12px}
+    .screen-card .sub-row button{flex:1;background:#eceff1;color:#333;padding:10px}
+    .screen-card .sub-row button.prim{background:var(--primary);color:white}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 18px;background:#ecfeff;border-bottom:1px solid var(--border)}
+    header{background:linear-gradient(135deg,#0e7490,#0891b2);color:white;padding:22px 28px}
+    header h1{margin:0;font-size:24px}
+    header p{margin:6px 0 0;opacity:.9}
+    .layout{display:grid;grid-template-columns:430px 1fr;gap:18px;padding:18px}
+    .panel,.preview{background:white;border:1px solid var(--border);border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.06)}
+    .panel{padding:16px;max-height:calc(100vh - 110px);overflow:auto}
+    .preview{padding:20px;overflow:auto}
+    fieldset{border:1px solid var(--border);border-radius:10px;margin:0 0 14px;padding:12px}
+    legend{font-weight:bold;color:var(--primary);padding:0 6px}
+    label{display:block;font-size:13px;font-weight:600;margin:10px 0 4px}
+    input,select,textarea{width:100%;padding:8px;border:1px solid #b0bec5;border-radius:7px;font-size:14px;background:white}
+    textarea{min-height:70px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .seg-card{border:1px solid #e0e0e0;border-radius:9px;padding:8px;background:#fbfdfe;margin-bottom:8px}
+    .seg-card label{margin-top:0}
+    .other-note{margin-top:6px;display:none}
+    .other-note.visible{display:block}
+    .btns{position:sticky;bottom:0;background:white;padding-top:10px;border-top:1px solid #e0e0e0;display:flex;gap:8px;flex-wrap:wrap}
+    button{border:0;border-radius:8px;padding:10px 12px;cursor:pointer;font-weight:bold}
+    .primary{background:var(--primary);color:white}
+    .secondary{background:#eceff1;color:#263238}
+    .muted{color:#666;font-size:12px}
+    .imp-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px}
+    .imp-grid label{font-weight:normal;font-size:12.5px;display:flex;align-items:center;gap:5px;margin:0;cursor:pointer}
+    .meas-tbl{width:100%;border-collapse:collapse;font-size:12px}
+    .meas-tbl th{background:#f2f2f2;padding:5px;border:1px solid #ccc;text-align:left;font-size:11px}
+    .meas-tbl td{padding:4px;border:1px solid #ccc}
+    .meas-tbl input{padding:3px 5px;width:100%}
+    .meas-tbl select{font-size:11px;padding:3px}
+    #report{background:white;color:#111;width:794px;min-height:1123px;margin:auto;padding:34px 42px;border:1px solid #e0e0e0;font-family:'Times New Roman',Times,serif;position:relative}
+    #report h2{text-align:center;margin:0 0 14px;text-transform:uppercase;font-size:21px;color:#000}
+    #report .topline{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;font-size:14px;margin-bottom:10px}
+    #report .section-title{margin-top:12px;font-weight:bold;font-size:15px;border-bottom:1px solid #777;padding-bottom:2px}
+    #report table{width:100%;border-collapse:collapse;margin-top:6px;font-size:13px}
+    #report td,#report th{border:1px solid #999;padding:4px 6px;vertical-align:top}
+    #report th{background:#f2f2f2;text-align:left;width:38%}
+    #report p.rp{font-size:14px;margin:5px 0}
+    .impression-box{border:1px solid #999;padding:10px 14px;min-height:100px;margin-top:6px;white-space:pre-line;font-size:14px;line-height:1.45}
+    .signature{margin-top:40px;display:flex;justify-content:flex-end}
+    .sigbox{width:300px;text-align:left;border-top:1px solid #333;padding-top:8px;font-size:13px}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}.panel{max-height:none}#report{width:100%}}
+    @media print{body{background:white}header,.panel,.screen,.topbar{display:none}.layout{display:block;padding:0}.preview{border:0;box-shadow:none;padding:0}#report{border:0;width:100%;min-height:auto;padding:20mm}}
+  </style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="loginScreen" class="screen">
+  <div class="screen-card">
+    <h2>EchoReport Pro</h2>
+    <p>Neonatal Echocardiography Reporting System</p>
+    <label>Username</label><input id="loginUser" type="text" placeholder="admin">
+    <label>Password</label><input id="loginPass" type="password" placeholder="admin@1234">
+    <button onclick="loginApp()">Login</button>
+    <p class="err" id="loginMsg"></p>
+  </div>
+</div>
+
+<!-- Payment Screen -->
+<div id="paymentScreen" class="screen hidden">
+  <div class="screen-card">
+    <h2>Subscription</h2>
+    <p id="paymentMsg" style="font-size:13px;color:#555;text-align:left;margin-bottom:14px;"></p>
+    <label>Payment Date</label><input id="paymentDate" type="date">
+    <label>Next Due Date</label><input id="nextDueDate" type="date" readonly style="background:#f5f5f5;margin-bottom:6px">
+    <div class="sub-row">
+      <button class="prim" onclick="markPaymentDone()">Mark Payment Done</button>
+      <button onclick="logoutApp()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="mainApp" class="hidden">
+  <div class="topbar">
+    <div><b>Full Product:</b> Neonatal Echo Report Generator &nbsp;|&nbsp; <span class="muted">Active until: <span id="activeUntilText"></span></span></div>
+    <div>
+      <button class="secondary" onclick="saveDoctorDetails(); alert('Doctor details saved.')">Save Doctor Details</button>
+      <button class="secondary" style="margin-left:6px" onclick="openPaymentSettings()">Subscription</button>
+      <button class="secondary" style="margin-left:6px" onclick="logoutApp()">Logout</button>
+    </div>
+  </div>
+  <header>
+    <h1>Neonatal Echocardiography Report Generator - Full Product</h1>
+    <p>NICU / Newborn cardiac evaluation — fill the form and download a structured A4 report.</p>
+  </header>
+
+  <div class="layout">
+    <section class="panel">
+      <fieldset>
+        <legend>Patient Details</legend>
+        <div class="row"><div><label>Baby Name</label><input id="babyName" placeholder="Baby of Mrs. ..."></div><div><label>GA / Postnatal Age</label><input id="gaAge" placeholder="e.g. 32 weeks GA, DOL 5"></div></div>
+        <div class="row3"><div><label>Birth Weight (g)</label><input id="birthWeight" type="number"></div><div><label>ID No</label><input id="patId"></div><div><label>Date</label><input id="patDate" type="date"></div></div>
+        <div class="row"><div><label>Indication</label><select id="patIndication"><option value="">Select</option><option>Routine cardiac screening</option><option>Preterm — NICU evaluation</option><option>Suspected CHD</option><option>Cardiac murmur</option><option>Hypoxia / Low saturations</option><option>Respiratory distress</option><option>PDA assessment</option><option>PPHN evaluation</option><option>Hydrops</option><option>Other</option></select></div><div><label>Ward / Bed</label><input id="ward" placeholder="e.g. NICU Bed 4"></div></div>
+        <div class="row"><div><label>Heart Rate (bpm)</label><input id="hr" type="number"></div><div><label>SpO2 (%)</label><input id="spo2" type="number"></div></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Segmental Anatomy</legend>
+        <p class="muted">Systematically describe cardiac connections from veins to arteries.</p>
+        <div id="segInputs"></div>
+        <label>Other remarks</label><textarea id="segOthers" placeholder="Any additional segmental or structural findings..."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>PDA Assessment</legend>
+        <div class="row"><div><label>PDA Status</label><select id="pdaStatus"><option value="">Select</option><option>No PDA</option><option>Small PDA</option><option>Moderate PDA</option><option>Large PDA</option><option>Closing PDA</option><option>Closed PDA</option></select></div><div><label>PDA Size (mm)</label><input id="pdaSize" type="number" step="0.1"></div></div>
+        <div class="row"><div><label>LA:Ao Ratio</label><input id="laAo" type="number" step="0.01"></div><div><label>Haemodynamic Significance</label><select id="pdaHemo"><option value="">Select</option><option>Not haemodynamically significant</option><option>Haemodynamically significant</option><option>Large left-to-right shunt</option><option>Bidirectional flow</option><option>Right-to-left shunting</option></select></div></div>
+        <label>PDA Remarks</label><textarea id="pdaRemarks" placeholder="Additional PDA comments..."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>2D Measurements (with Z-scores)</legend>
+        <table class="meas-tbl"><thead><tr><th>Parameter</th><th>Value (mm)</th><th>Z-score</th><th>Status</th></tr></thead><tbody id="meas2DBody"></tbody></table>
+      </fieldset>
+
+      <fieldset>
+        <legend>M-Mode &amp; Doppler</legend>
+        <table class="meas-tbl"><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th><th>Status</th></tr></thead><tbody id="dopplerBody"></tbody></table>
+      </fieldset>
+
+      <fieldset>
+        <legend>Impression &amp; Doctor Details</legend>
+        <div class="imp-grid" id="impChecks"></div>
+        <label>Additional impression line</label><input id="customLine" placeholder="Type and click Add">
+        <div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="secondary" onclick="addCustomLine()">Add Line</button><button type="button" class="primary" onclick="generateImpression()">Generate Impression</button></div>
+        <label>Impression</label><textarea id="impressionText" placeholder="Generated impression appears here. Doctor can edit."></textarea>
+        <label>Doctor Name</label><input id="doctorName">
+        <label>Designation / Qualification</label><input id="designation">
+        <label>Registration No</label><input id="regNo">
+      </fieldset>
+
+      <div class="btns">
+        <button class="primary" onclick="updateReport()">Update Preview</button>
+        <button class="primary" onclick="downloadPDF()">Download PDF Report</button>
+        <button class="secondary" onclick="window.print()">Print</button>
+        <button class="secondary" onclick="resetForm()">Reset</button>
+      </div>
+    </section>
+
+    <section class="preview">
+      <div id="report">
+        <h2>Neonatal Echocardiography Report</h2>
+        <div class="topline">
+          <div><b>Baby Name:</b> <span data-out="babyName"></span></div>
+          <div><b>GA / Age:</b> <span data-out="gaAge"></span></div>
+          <div><b>Birth Weight:</b> <span data-out="birthWeight"></span> g</div>
+          <div><b>ID No:</b> <span data-out="patId"></span></div>
+          <div><b>Date:</b> <span data-out="patDate"></span></div>
+          <div><b>Ward:</b> <span data-out="ward"></span></div>
+          <div><b>HR:</b> <span data-out="hr"></span> bpm &nbsp;|&nbsp; <b>SpO2:</b> <span data-out="spo2"></span>%</div>
+        </div>
+        <p class="rp"><b>Indication:</b> <span data-out="patIndication"></span></p>
+        <div class="section-title">Segmental Anatomy</div>
+        <table><tbody id="segmentTable"></tbody></table>
+        <div class="section-title">PDA Assessment</div>
+        <p class="rp" id="rPDA">—</p>
+        <div class="section-title">2D Measurements (with Z-scores)</div>
+        <table><thead><tr><th>Parameter</th><th>Value</th><th>Z-score</th><th>Status</th></tr></thead><tbody id="rMeas2DTable"></tbody></table>
+        <div class="section-title">M-Mode &amp; Doppler</div>
+        <table><thead><tr><th>Parameter</th><th>Value</th><th>Unit</th><th>Status</th></tr></thead><tbody id="rDopplerTable"></tbody></table>
+        <div class="section-title">IMPRESSION</div>
+        <div class="impression-box"><span data-out="impressionText"></span></div>
+        <div class="signature"><div class="sigbox"><b>Performed and Interpreted by:</b><br><span data-out="doctorName"></span><br><span data-out="designation"></span><br><span data-out="regNo"></span><br><br><span class="muted">Doctor may sign manually above this line.</span></div></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+const ADMIN_USER='admin';const ADMIN_PASS='admin@1234';
+function todayISO(){return new Date().toISOString().slice(0,10)}
+function addDaysISO(d,n){const x=new Date(d+'T00:00:00');x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)}
+function isPaymentActive(){const due=localStorage.getItem('neonatalEcho_due');return due&&todayISO()<=due}
+function showOnly(id){['loginScreen','paymentScreen','mainApp'].forEach(s=>{const el=document.getElementById(s);if(el)el.classList.add('hidden')});const t=document.getElementById(id);if(t)t.classList.remove('hidden')}
+function routeApp(){
+  if(localStorage.getItem('neonatalEcho_loggedIn')!=='yes'){showOnly('loginScreen');return}
+  if(!isPaymentActive()){refreshPaymentUI();showOnly('paymentScreen');return}
+  showOnly('mainApp');
+  document.getElementById('activeUntilText').textContent=localStorage.getItem('neonatalEcho_due');
+  updateReport()
+}
+function loginApp(){
+  const u=document.getElementById('loginUser').value.trim();const p=document.getElementById('loginPass').value;
+  if(u===ADMIN_USER&&p===ADMIN_PASS){localStorage.setItem('neonatalEcho_loggedIn','yes');routeApp()}
+  else document.getElementById('loginMsg').textContent='Invalid login. Use admin / admin@1234.'}
+function logoutApp(){localStorage.removeItem('neonatalEcho_loggedIn');showOnly('loginScreen')}
+function refreshPaymentUI(){
+  const pd=localStorage.getItem('neonatalEcho_payDate')||todayISO();
+  const due=localStorage.getItem('neonatalEcho_due')||addDaysISO(pd,30);
+  document.getElementById('paymentDate').value=pd;document.getElementById('nextDueDate').value=due;
+  document.getElementById('paymentMsg').textContent=isPaymentActive()?`Subscription active until ${due}.`:`Subscription expired. Pay and mark payment date.`}
+function markPaymentDone(){
+  const pd=document.getElementById('paymentDate').value||todayISO();const due=addDaysISO(pd,30);
+  localStorage.setItem('neonatalEcho_payDate',pd);localStorage.setItem('neonatalEcho_due',due);routeApp()}
+function openPaymentSettings(){refreshPaymentUI();showOnly('paymentScreen')}
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='paymentDate')document.getElementById('nextDueDate').value=addDaysISO(e.target.value||todayISO(),30)});
+
+const seg=[
+  {label:"Situs",id:"situs",options:["Situs solitus","Situs inversus totalis","Situs ambiguus — right isomerism","Situs ambiguus — left isomerism","Other"]},
+  {label:"Cardiac position",id:"cardiacPosition",options:["Levocardia","Dextrocardia","Mesocardia","Other"]},
+  {label:"Systemic venous return",id:"systemicVeins",options:["Normal — bilateral SVC draining to RA","LSVC to coronary sinus","Absent right SVC","LSVC to LA (unroofed)","IVC interruption — azygous continuation","Bilateral SVC","Other"]},
+  {label:"Pulmonary venous return",id:"pulmonaryVeins",options:["Normal — four pulmonary veins to LA","Partial APVR","Total APVR — supracardiac","Total APVR — cardiac","Total APVR — infracardiac","Mixed TAPVR","Other"]},
+  {label:"Interatrial septum",id:"ias",options:["Intact","Patent foramen ovale (PFO)","ASD — secundum","ASD — primum","ASD — sinus venosus","ASD — unroofed coronary sinus","Common atrium","Other"]},
+  {label:"Interventricular septum",id:"ivs",options:["Intact","VSD — perimembranous","VSD — muscular","VSD — inlet","VSD — outlet (subarterial)","Multiple VSDs","Swiss-cheese VSDs","Other"]},
+  {label:"Right atrium",id:"ra",options:["Normal","Mildly dilated","Moderately dilated","Common atrium","Other"]},
+  {label:"Left atrium",id:"la",options:["Normal","Mildly dilated","Moderately dilated","Other"]},
+  {label:"Right ventricle",id:"rv",options:["Normal","Hypoplastic RV","Dilated RV","Hypertrophied RV","Double-chambered RV","Other"]},
+  {label:"Left ventricle",id:"lv",options:["Normal","Hypoplastic LV","Dilated LV","Non-compaction pattern","Other"]},
+  {label:"AV connection",id:"avConn",options:["Concordant AV connection","Discordant AV connection","Univentricular AV connection — double inlet LV","Univentricular AV connection — double inlet RV","Absent right AV connection","Absent left AV connection","Other"]},
+  {label:"VA connection",id:"vaConn",options:["Concordant VA connection","Discordant VA connection (TGA)","Double outlet RV (DORV)","Double outlet LV (DOLV)","Single outlet — truncus arteriosus","Other"]},
+  {label:"Tricuspid valve",id:"tricuspid",options:["Normal","Ebstein's anomaly","Tricuspid regurgitation","Tricuspid atresia","Straddling tricuspid","Overriding tricuspid","Other"]},
+  {label:"Mitral valve",id:"mitral",options:["Normal","Mitral regurgitation","Mitral stenosis","Mitral atresia","Cleft mitral valve","Parachute mitral valve","Overriding mitral","Other"]},
+  {label:"Aortic valve",id:"aorticValve",options:["Tricuspid, competent","Bicuspid aortic valve","Aortic stenosis","Aortic regurgitation","Aortic atresia","Other"]},
+  {label:"Aorta / LVOT",id:"aorta",options:["Normal","LVOT obstruction","Sub-aortic stenosis","Supravalvar AS","Other"]},
+  {label:"Coronary arteries",id:"coronary",options:["Normal origin and course","ALCAPA — anomalous LCA from PA","Single coronary artery","Coronary fistula","Not well visualized","Other"]},
+  {label:"Pulmonary valve / RVOT",id:"pulmonaryValve",options:["Normal","Pulmonary stenosis","Pulmonary atresia","Pulmonary regurgitation","RVOT obstruction","Absent pulmonary valve","Other"]},
+  {label:"Main pulmonary artery",id:"mpa",options:["Normal","Dilated MPA","Hypoplastic MPA","Not well visualized","Other"]},
+  {label:"Branch pulmonary arteries",id:"branchPa",options:["Normal — equal bilateral flow","Right PA hypoplasia","Left PA hypoplasia","Branch PA stenosis","Unilateral absence of PA","Other"]},
+  {label:"Aortic arch",id:"arch",options:["Normal left arch","Right aortic arch — mirror image","Right aortic arch — aberrant LSCA","Double aortic arch","Coarctation of aorta","Interrupted aortic arch","Hypoplastic aortic arch","Other"]},
+  {label:"Pericardium",id:"pericardium",options:["No pericardial effusion","Small effusion","Moderate effusion","Large effusion","Pericarditis features","Other"]},
+];
+const meas2DParams=[{name:"Aortic valve annulus",unit:"mm"},{name:"Main pulmonary artery",unit:"mm"},{name:"Branch right PA",unit:"mm"},{name:"Branch left PA",unit:"mm"},{name:"Ductal diameter",unit:"mm"},{name:"LV end-diastolic diameter",unit:"mm"},{name:"RV diameter (basal)",unit:"mm"},{name:"Left atrium (AP)",unit:"mm"}];
+const dopplerParams=[{name:"Ductal flow velocity",unit:"m/s"},{name:"Tricuspid regurgitation velocity",unit:"m/s"},{name:"RVSP (estimated)",unit:"mmHg"},{name:"Aortic peak velocity",unit:"m/s"},{name:"Pulmonary peak velocity",unit:"m/s"},{name:"LVEF (estimated)",unit:"%"},{name:"Mitral E wave",unit:"m/s"},{name:"Mitral A wave",unit:"m/s"},{name:"IVC diameter",unit:"mm"}];
+const impressionOptions=["Normal neonatal echocardiography","No structural heart disease","Normal cardiac segmental connections","Patent foramen ovale (PFO) — normal for age","PDA — small, not haemodynamically significant","PDA — haemodynamically significant, treatment warranted","ASD — secundum type, small","Ventricular septal defect — small, restrictive","Transient right heart dilatation of the newborn","Pulmonary hypertension of the newborn (PPHN)","Resolving PPHN","Normal biventricular function","Reduced LV systolic function","Coarctation of the aorta — further evaluation recommended","Congenital heart disease — paediatric cardiology referral recommended","Repeat echo recommended in 4–6 weeks","Echocardiography performed to guide NICU management"];
+
+function val(id){return document.getElementById(id)?.value||''}
+function esc(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+
+function renderSegInputs(){
+  document.getElementById('segInputs').innerHTML=seg.map(s=>`<div class="seg-card"><label>${s.label}</label><select id="${s.id}" onchange="toggleSegOther(this,'${s.id}_other')">${s.options.map(o=>`<option>${o}</option>`).join('')}</select><input class="other-note" id="${s.id}_other" placeholder="Custom..."></div>`).join('')
+}
+function toggleSegOther(sel,otherId){const el=document.getElementById(otherId);if(!el)return;sel.value==='Other'?el.classList.add('visible'):(el.classList.remove('visible'),el.value='')}
+function segValue(id){const sel=document.getElementById(id)?.value||'—';const oth=(document.getElementById(id+'_other')?.value||'').trim();if(sel==='Other')return oth||'Other';return oth?`${sel} (${oth})`:sel}
+function renderMeas2D(){document.getElementById('meas2DBody').innerHTML=meas2DParams.map((p,i)=>`<tr><td>${p.name}</td><td><input id="m2d_val_${i}" type="number" step="0.1" placeholder="—"></td><td><input id="m2d_z_${i}" type="number" step="0.01" placeholder="z-score"></td><td><select id="m2d_st_${i}"><option>—</option><option>Normal</option><option>Mildly low</option><option>Mildly high</option><option>Borderline</option><option>Significantly low</option><option>Significantly high</option><option>Not measured</option></select></td></tr>`).join('')}
+function renderDoppler(){document.getElementById('dopplerBody').innerHTML=dopplerParams.map((p,i)=>`<tr><td>${p.name}</td><td><input id="dop_val_${i}" type="number" step="0.01" placeholder="—"></td><td style="font-size:11px;color:#666">${p.unit}</td><td><select id="dop_st_${i}"><option>—</option><option>Normal</option><option>Elevated</option><option>Reduced</option><option>Not recorded</option></select></td></tr>`).join('')}
+function renderImpChecks(){document.getElementById('impChecks').innerHTML=impressionOptions.map(opt=>`<label><input type="checkbox" class="impCheck" value="${opt}"> ${opt}</label>`).join('')}
+
+function addCustomLine(){const input=document.getElementById('customLine');const text=(input.value||'').trim();if(!text)return;const current=val('impressionText').trim();document.getElementById('impressionText').value=current?current+'\n'+text.toUpperCase():text.toUpperCase();input.value='';updateReport()}
+function generateImpression(){const lines=Array.from(document.querySelectorAll('.impCheck:checked')).map(cb=>cb.value);const extra=(val('customLine')||'').trim();if(extra)lines.push(extra.toUpperCase());document.getElementById('impressionText').value=lines.join('\n');updateReport()}
+function saveDoctorDetails(){['doctorName','designation','regNo'].forEach(id=>localStorage.setItem('neonatalEcho_'+id,val(id)))}
+function loadDoctorDetails(){['doctorName','designation','regNo'].forEach(id=>{const s=localStorage.getItem('neonatalEcho_'+id);if(s!==null)document.getElementById(id).value=s})}
+
+const simpleIds=['babyName','gaAge','birthWeight','patId','patDate','ward','hr','spo2','patIndication','impressionText','doctorName','designation','regNo'];
+function updateReport(){
+  simpleIds.forEach(id=>document.querySelectorAll(`[data-out="${id}"]`).forEach(e=>e.textContent=val(id)));
+  document.getElementById('segmentTable').innerHTML=seg.map(s=>`<tr><th>${s.label}</th><td>${esc(segValue(s.id))}</td></tr>`).join('');
+  const pdaParts=[];
+  if(val('pdaStatus'))pdaParts.push(val('pdaStatus'));
+  if(val('pdaSize'))pdaParts.push(`Size: ${val('pdaSize')} mm`);
+  if(val('laAo'))pdaParts.push(`LA:Ao ratio: ${val('laAo')}`);
+  if(val('pdaHemo'))pdaParts.push(val('pdaHemo'));
+  if(val('pdaRemarks'))pdaParts.push(val('pdaRemarks'));
+  document.getElementById('rPDA').textContent=pdaParts.join(' | ')||'—';
+  document.getElementById('rMeas2DTable').innerHTML=meas2DParams.map((p,i)=>{const v=document.getElementById('m2d_val_'+i)?.value||'—';const z=document.getElementById('m2d_z_'+i)?.value||'—';const st=document.getElementById('m2d_st_'+i)?.value||'—';return`<tr><td>${p.name}</td><td>${v}</td><td>${z}</td><td>${st}</td></tr>`}).join('');
+  document.getElementById('rDopplerTable').innerHTML=dopplerParams.map((p,i)=>{const v=document.getElementById('dop_val_'+i)?.value||'—';const st=document.getElementById('dop_st_'+i)?.value||'—';return`<tr><td>${p.name}</td><td>${v}</td><td style="font-size:11px;color:#666">${p.unit}</td><td>${st}</td></tr>`}).join('');
+}
+
+async function downloadPDF(){
+  updateReport();
+  const report=document.getElementById('report');
+  const canvas=await html2canvas(report,{scale:2,useCORS:true});
+  const imgData=canvas.toDataURL('image/png');
+  const{jsPDF}=window.jspdf;
+  const pdf=new jsPDF('p','pt','a4');
+  const pageW=pdf.internal.pageSize.getWidth(),pageH=pdf.internal.pageSize.getHeight();
+  const imgW=pageW,imgH=canvas.height*imgW/canvas.width;
+  let left=imgH,pos=0;
+  pdf.addImage(imgData,'PNG',0,pos,imgW,imgH);left-=pageH;
+  while(left>0){pos=left-imgH;pdf.addPage();pdf.addImage(imgData,'PNG',0,pos,imgW,imgH);left-=pageH}
+  const name=(val('babyName')||'neonatal_echo_report').replace(/[^a-z0-9]/gi,'_').toLowerCase();
+  pdf.save(`${name}_neonatal_echo_report.pdf`)
+}
+function resetForm(){if(confirm('Clear all entered values?'))location.reload()}
+
+window.addEventListener('input',e=>{if(['doctorName','designation','regNo'].includes(e.target.id))saveDoctorDetails();updateReport()});
+window.addEventListener('change',e=>{if(['doctorName','designation','regNo'].includes(e.target.id))saveDoctorDetails();updateReport()});
+window.onload=()=>{
+  renderSegInputs();renderMeas2D();renderDoppler();renderImpChecks();
+  loadDoctorDetails();
+  document.getElementById('patDate').valueAsDate=new Date();
+  routeApp()
+};
+</script>
+</body>
+</html>
